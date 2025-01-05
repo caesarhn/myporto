@@ -33,11 +33,12 @@ export const Account = sqliteTable('account', {
     id: text('id').primaryKey(),
     username: text('username').notNull(),
     password: text('password').notNull(),
+    creatorid: text('creatorid').notNull(),
 })
 
 export const Session = sqliteTable('session', {
     id: text('id').primaryKey(),
-    usernameId: text('usernameId').notNull(),
+    userid: text('userid').notNull(),
     sessionId: text('sessionId').notNull(),
     expired: text('expired').notNull(),
 })

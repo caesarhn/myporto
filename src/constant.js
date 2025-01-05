@@ -1,4 +1,4 @@
-export const PUBLIC_URL = ["/login", "/testing", "/beranda", "/creator/write/test", "/test-feature"]
+export const PUBLIC_URL = ["/", "/testing", "/beranda", "/test-feature", "/porto", "/pilih-paket/paket-umroh"]
 export const TOKEN = "jsaoweadvsvdmsdvfuuirebasdvs"
 export function makeToken(length) {
     let result = '';

@@ -16,7 +16,6 @@ const searching = Astro.cookies.get("searching")?.value === undefined ? "disable
 const datas = await db.select().from(creator).leftJoin(content, eq(creator.id, content.creatorId))
 
 const dataFilter = datas.filter(res => {
-    console.log(res)
     return res.content_root.tittle.includes(search)
 })
 
@@ -25,8 +24,6 @@ Astro.cookies.set("searching", "disable")
 
 const indexads = Math.floor(Math.random() * (data.length - 1)) + 1
 var currentindex = 0
-console.log(search)
-console.log(searching)
 ---
 
 <!doctype html>

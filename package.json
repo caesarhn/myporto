@@ -24,6 +24,7 @@
     "@tailwindcss/line-clamp": "^0.4.4",
     "astro": "latest",
     "axios": "^1.7.3",
+    "bcrypt": "^5.1.1",
     "better-sqlite3": "^11.1.2",
     "dragon-breathe": "file:",
     "drizzle-orm": "^0.32.1",
@@ -36,7 +37,8 @@
     "purecss": "^3.0.0",
     "sass": "^1.70.0",
     "tailwindcss": "^3.4.7",
-    "three": "^0.161.0"
+    "three": "^0.161.0",
+    "uuid": "^10.0.0"
   },
   "devDependencies": {
     "@types/bun": "^1.0.5",
