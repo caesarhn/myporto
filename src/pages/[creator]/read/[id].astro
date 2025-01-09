@@ -1,15 +1,14 @@
 ---
 import Header from "../../../components/MainHeader.astro"
 import Footer from '../../../components/MainFooter.astro'
-import {db} from '../../../utils/db'
-import {content, content_component, creator} from '../../../models/schema'
+import {db} from '../../../utils/mysql/index'
+import {content, contentComponent, creator} from '../../../models/mysql/schema'
 import {eq} from 'drizzle-orm'
 
 const {creatorname, id} = Astro.params
 const content_root = await db.select().from(content).where(eq(content.id, id))
-const creator_id = content_root[0].creatorId
 await db.update(content).set({view: content_root[0].view + 1}).where(eq(content.id, id))
-const sub_content = await db.select().from(content_component).where(eq(content_component.contentId, id)).orderBy(content_component.index)
+const sub_content = await db.select().from(contentComponent).where(eq(contentComponent.contentId, id)).orderBy(contentComponent.index)
 const creatordesc = await db.select().from(creator).where(eq(creator.id, content_root[0].creatorId))
 //console.log(sub_content)
 ---
@@ -21,7 +20,7 @@ const creatordesc = await db.select().from(creator).where(eq(creator.id, content
         <title>{content_root[0]?.tittle}</title>
         <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
     </head>
-    <body class="bg-slate-100">
+    <body class="min-h-full bg-slate-100">
         <Header/>
         <main class="sm:w-full sm:px-5 md:w-1/2 md:mx-auto lg:w-2/5 lg:mx-auto bg-slate-50 mt-20 pt-5">
             <p id="cat"></p>

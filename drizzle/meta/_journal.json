@@ -1,19 +1,61 @@
 {
-  "version": "5",
-  "dialect": "sqlite",
+  "version": "7",
+  "dialect": "mysql",
   "entries": [
     {
       "idx": 0,
       "version": "5",
-      "when": 1707692459425,
-      "tag": "0000_loving_starjammers",
+      "when": 1736078644224,
+      "tag": "0000_curious_valkyrie",
       "breakpoints": true
     },
     {
       "idx": 1,
       "version": "5",
-      "when": 1709035841707,
-      "tag": "0001_last_epoch",
+      "when": 1736078899078,
+      "tag": "0001_melted_blonde_phantom",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1736079058921,
+      "tag": "0002_gigantic_domino",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "5",
+      "when": 1736080155583,
+      "tag": "0003_icy_the_hood",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "5",
+      "when": 1736081405579,
+      "tag": "0004_military_leopardon",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "5",
+      "when": 1736144389410,
+      "tag": "0005_strange_pretty_boy",
+      "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "5",
+      "when": 1736253439864,
+      "tag": "0006_puzzling_scourge",
+      "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "5",
+      "when": 1736255877812,
+      "tag": "0007_hesitant_chat",
       "breakpoints": true
     }
   ]

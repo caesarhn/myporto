@@ -1,6 +1,8 @@
 import { defineMiddleware } from "astro:middleware"
-import { db } from "./utils/db"
-import { Account, Session } from "./models/schema"
+// import { db } from "./utils/db"
+// import { Account, Session } from "./models/schema"
+import { db } from "./utils/mysql/index"
+import { Account, Session } from "./models/mysql/schema"
 import { eq, and } from "drizzle-orm"
 import { PUBLIC_URL, makeToken} from "./constant"
 import { v4 as uuid } from 'uuid'
@@ -8,16 +10,16 @@ import bcrypt from 'bcrypt'
 
 export const onRequest = defineMiddleware(async (context, next) => {
     //console.log(await context.request.formData())
-
-    const Token = context.cookies.get("token")?.value ?? "no-token"
+    //const Token = context.cookies.get("token")?.value ?? "no-token"
     const path = context.url.pathname.split('/')
     console.log(path)
 
-    const token = await context.cookies.get("token")
-    const findSessions = await db.select().from(Session).where(eq(Session.sessionId, token?.value))
+    const token = context.cookies.get("token")
+    const findSessions = await db.select().from(Session).where(eq(Session.sessionId, token?.value != null ? token.value : ""))
+    console.log("cgjydht ")
 
     if(findSessions.length == 0){
-        console.log("no session")
+        console.log("no session ", context.request.method)
         //public
         if(path[2] == 'read' || PUBLIC_URL.includes(context.url.pathname)){
             return next()
@@ -32,23 +34,13 @@ export const onRequest = defineMiddleware(async (context, next) => {
             const end = Date.now() - start
             console.log(data.get("password"), " ", password, " in ", end, "ms")
             const findUser = await db.select().from(Account).where(eq(Account.username, data.get("username")))
+            console.log(findUser.length)
             if(findUser.length != 0){
                 console.log("user ditemukan: ", findUser[0].username)
-                await bcrypt.compare(data.get("password"), findUser[0].password, async (err, result) => {
+                try{
+                    const result = await bcrypt.compare(data.get("password"), findUser[0].password)
                     console.log("verifikasi: ", result)
-                    if(err){
-                        console.log("error nyaa")
-                        return new Response(
-                            JSON.stringify({message: 'error ee'}),
-                            {
-                                status: 401,
-                                headers: {
-                                    'Content-Type': 'application/json',
-                                },
-                            }
-                        )
-                    }
-                    else if(result){
+                    if(result){
                         //init Token
                         const newtoken = makeToken(12)
                         const expired = Date.now() + 3600000
@@ -56,9 +48,10 @@ export const onRequest = defineMiddleware(async (context, next) => {
                         context.cookies.set("token", newtoken)
                         await db.insert(Session).values({
                             id: uuid(),
-                            userid: findUser[0].id,
+                            accountId: findUser[0].id,
                             sessionId: newtoken,
-                            expired: expired
+                            expired: expired,
+                            creatorId: findUser[0].creatorId
                         })
                         return context.redirect("/beranda", 302)
                     }else{
@@ -71,10 +64,20 @@ export const onRequest = defineMiddleware(async (context, next) => {
                                     'Content-Type': 'application/json',
                                 },
                             }
-
                         )
-                    }
-                })
+                    } 
+                }catch(err){
+                    console.log("error nyaa")
+                    return new Response(
+                        JSON.stringify({message: 'error ee'}),
+                        {
+                            status: 401,
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                        }
+                    )
+                }
             }
             return context.redirect("/login", 302)
         }
@@ -90,6 +93,10 @@ export const onRequest = defineMiddleware(async (context, next) => {
             context.cookies.delete("token")
             context.cookies.delete("user")
             return context.redirect("/login", 302)
+        }
+        else if(path[1] === "api"){
+            console.log("ini permintaan ke API")
+            return next()
         }else{
             return next()
         }

@@ -13,7 +13,8 @@
     "build-db2": "ASTRO_DATABASE_FILE=/dist/server/database.db astro build",
     "deno": "deno run --allow-net --allow-read --allow-env ./dist/server/entry.mjs",
     "node": "node app.js",
-    "generate": "drizzle-kit generate:sqlite"
+    "generate": "drizzle-kit generate",
+    "migrate": "drizzle-kit migrate"
   },
   "dependencies": {
     "@astrojs/db": "^0.12.0",
@@ -26,12 +27,14 @@
     "axios": "^1.7.3",
     "bcrypt": "^5.1.1",
     "better-sqlite3": "^11.1.2",
+    "dotenv": "^16.4.7",
     "dragon-breathe": "file:",
-    "drizzle-orm": "^0.32.1",
+    "drizzle-orm": "^0.38.3",
     "esbuild": "^0.23.0",
     "express": "^4.18.2",
     "flowbite": "^2.4.1",
     "moment": "^2.30.1",
+    "mysql2": "^3.12.0",
     "npm": "^10.4.0",
     "pg": "^8.12.0",
     "purecss": "^3.0.0",
@@ -44,6 +47,7 @@
     "@types/bun": "^1.0.5",
     "@types/pg": "^8.11.6",
     "cross-env": "^7.0.3",
-    "drizzle-kit": "^0.23.0"
+    "drizzle-kit": "^0.30.1",
+    "tsx": "^4.19.2"
   }
 }

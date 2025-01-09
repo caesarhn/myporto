@@ -1,0 +1,65 @@
+---
+import Header from "../../../components/MainHeader.astro"
+import ContentColection from "../../../components/ContentColection.astro"
+import Button from "../../../components/button/button_default.astro"
+import {db} from "../../../utils/mysql/index"
+import { eq } from "drizzle-orm"
+import {content, Session} from "../../../models/mysql/schema"
+import { v4 as uuid } from 'uuid'
+
+const {id} = Astro.params
+const api = import.meta.env.GO_API
+
+const token = Astro.cookies.get("token")
+const access = db.select().from(Session).where(eq(Session.sessionId, token.value))
+
+---
+
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <title>Write Content</title>
+        <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
+    </head>
+    <body>
+        <Header/>
+        <div class="relative sm:w-11/12 md:w-1/2 lg:w-1/3 mx-auto">
+            <ContentColection creatorid={id}/>
+            <div id="write-new">
+                <Button text="Write New"/>
+            </div>
+            <script is:inline define:vars={{api, id}}>
+                const write = document.getElementById("write-new")
+                write.addEventListener("click", async function (){
+                    await fetch('/api/write-new-content', {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify({id}),
+                    })
+                    // const data = {
+                    //     creatorid: 'creatornumberone'
+                    // }
+                    // const urlParams = new URLSearchParams({
+                    //     creatorid: 'creatornumberone'
+                    // }).toString()
+                    // console.log("post new content")
+                    // await fetch(api + `/api/addnewcontent?${urlParams}`, {
+                    //     method: 'POST',
+                    //     mode: 'cors',
+                    //     headers: {
+                    //         'Content-Type': 'application/json',
+                    //     },
+                    //     body: JSON.stringify(data),
+                    // }).then(res => {
+                    //     return res.json()
+                    // }).then(data => {
+                    //     console.log(data)
+                    //     location.href = '/creator/write/'+data.Data
+                    // })
+                })
+            </script>
+        </div>
+    </body>
+</html>

@@ -18,6 +18,9 @@ Inside of your Astro project, you'll see the following folders and files:
 
 ```text
 /
+├── server/
+│   ├── models/
+│   └── Function.go
 ├── public/
 │   └── favicon.svg
 ├── src/
@@ -52,3 +55,13 @@ All commands are run from the root of the project, from a terminal:
 ## 👀 Want to learn more?
 
 Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+
+## Databases
+
+Migration
+
+For Mysql database :
+schema or model at ./src/db/schema.ts
+generate migration file use -> npm run generate
+applying migration file to database use -> npm run migrate
+don't forget to manage configuration drizzle-kit on ./drizzle.config.ts for migration

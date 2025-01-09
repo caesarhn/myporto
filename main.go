@@ -11,13 +11,18 @@ import (
 
 	"github.com/google/uuid"
 	"github.com/julienschmidt/httprouter"
-	_ "github.com/mattn/go-sqlite3"
+
+	//_ "github.com/mattn/go-sqlite3"
+	_ "github.com/go-sql-driver/mysql"
 )
 
 func main() {
 	router := httprouter.New()
+	conn := "sewamo23_caesar:alwaysopen1@tcp(103.163.138.86:3306)/sewamo23_my_porto"
+
 	// Connect to database
-	db, err := sql.Open("sqlite3", "./db.sqlite3")
+	//db, err := sql.Open("sqlite3", "./db.sqlite3")
+	db, err := sql.Open("mysql", conn)
 	server.CheckErr(err)
 	//GetData(db)
 

@@ -143,9 +143,13 @@
     }
 
     async function Post(){
-        await axios.post(props.api + '/api/updatecontenttittle', {},{
+        //await axios.post(props.api + '/api/updatecontenttittle', {},{
+        await axios.put('/api/content/update-title', {
+            title: tittle.value,
+            contentid: props.content.id
+        },{
             params: {
-                tittle: tittle.value,
+                title: tittle.value,
                 contentid: props.content.id
             }
         })

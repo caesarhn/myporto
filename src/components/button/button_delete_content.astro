@@ -15,11 +15,19 @@ const {id, text, api} = Astro.props
     const realDeleteButton = document.getElementById(`real-${id}`)
     const buttonDelete = document.getElementById(id)
     realDeleteButton.addEventListener('click', async () => {
-        await fetch(api + '/api/deletecontent?'+ new URLSearchParams({
-            contentid: id
-        }).toString(), {
-            method: 'DELETE',
-            mode: 'cors'
+        // await fetch(api + '/api/deletecontent?'+ new URLSearchParams({
+        //     contentid: id
+        // }).toString(), {
+        //     method: 'DELETE',
+        //     mode: 'cors'
+        // })
+        console.log("begin delete")
+        await fetch('/api/content/delete', {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({id}),
         })
         window.location.reload()
     })

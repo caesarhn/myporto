@@ -4,9 +4,11 @@ import Preview from '../components/ContentPreview.astro'
 import Footer from '../components/MainFooter.astro'
 import Search from '../components/search.astro'
 
-import {db} from '../utils/db'
+//import {db} from '../utils/db'
+//import {creator, content} from '../models/schema'
+import {db} from '../utils/mysql/index'
+import {creator, content} from '../db/schema'
 import {eq} from 'drizzle-orm'
-import {creator, content} from '../models/schema'
 
 export const prerender = false
 
@@ -15,14 +17,19 @@ const searching = Astro.cookies.get("searching")?.value === undefined ? "disable
 
 const datas = await db.select().from(creator).leftJoin(content, eq(creator.id, content.creatorId))
 
-const dataFilter = datas.filter(res => {
-    return res.content_root.tittle.includes(search)
-})
+var indexads = 0
+var data = []
 
-const data = searching === "enable" ? dataFilter : datas
-Astro.cookies.set("searching", "disable")
-
-const indexads = Math.floor(Math.random() * (data.length - 1)) + 1
+if(datas.length !== 0 && datas[0].content_root !== null){
+    const dataFilter = datas?.filter(res => {
+        return res.content_root.tittle.includes(search)
+    })
+    
+    data = searching === "enable" ? dataFilter : datas
+    Astro.cookies.set("searching", "disable")
+    
+    indexads = Math.floor(Math.random() * (data.length - 1)) + 1
+}
 var currentindex = 0
 ---
 
@@ -32,7 +39,7 @@ var currentindex = 0
         <meta charset="UTF-8" />
         <title>beranda</title>
     </head>
-    <body class="bg-gray-50 dark:bg-gray-900">
+    <body class="bg-gray-50 dark:bg-gray-900 min-h-full">
         <script>
             import { Modal } from 'flowbite'
         </script>

@@ -1,8 +1,8 @@
 {
   "version": "5",
   "dialect": "mysql",
-  "id": "072d1ab8-5fb1-421c-8949-dc829ea54970",
-  "prevId": "e6a1bca8-e8dc-4691-81fd-14881157910b",
+  "id": "43da4e00-6db4-440a-8d46-8bfbd10a32cf",
+  "prevId": "836ceeac-4e4f-4348-9ac7-be0fa06b6d92",
   "tables": {
     "content_root": {
       "name": "content_root",
@@ -34,10 +34,68 @@
           "primaryKey": false,
           "notNull": false,
           "autoincrement": false
+        },
+        "creator_id": {
+          "name": "creator_id",
+          "type": "varchar(32)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "posted": {
+          "name": "posted",
+          "type": "varchar(32)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "updated": {
+          "name": "updated",
+          "type": "varchar(32)",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "view": {
+          "name": "view",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": 0
+        },
+        "like": {
+          "name": "like",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": 0
+        },
+        "content_link": {
+          "name": "content_link",
+          "type": "varchar(1048)",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
         }
       },
       "indexes": {},
-      "foreignKeys": {},
+      "foreignKeys": {
+        "content_root_creator_id_creator_id_fk": {
+          "name": "content_root_creator_id_creator_id_fk",
+          "tableFrom": "content_root",
+          "tableTo": "creator",
+          "columnsFrom": [
+            "creator_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
       "compositePrimaryKeys": {
         "content_root_id": {
           "name": "content_root_id",

@@ -2,8 +2,8 @@
 import Footer from '../../../components/MainFooter.astro'
 import Header from "../../../components/MainHeader.astro"
 import InputVue from "../../../components/vue/writeArea.vue"
-import {db} from '../../../utils/db'
-import { content, content_component } from '../../../models/schema'
+import {db} from '../../../utils/mysql/index'
+import { content, contentComponent } from '../../../models/mysql/schema'
 import {eq} from 'drizzle-orm'
 
 const headerHeight = "70px"
@@ -11,7 +11,7 @@ const {creator, writeid} = Astro.params
 
 const api = import.meta.env.GO_API
 
-const data = await db.select().from(content_component).where(eq(content_component.contentId, writeid))
+const data = await db.select().from(contentComponent).where(eq(contentComponent.contentId, writeid))
 const dataContent = await db.select().from(content).where(eq(content.id, writeid))
 ---
 

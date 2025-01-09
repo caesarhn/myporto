@@ -1,8 +1,8 @@
 ---
 import Button from './button/button_default.astro'
 import ButtonDelete from './button/button_delete_content.astro'
-import { db } from '../utils/db'
-import {content} from '../models/schema'
+import { db } from '../utils/mysql/index'
+import {content} from '../models/mysql/schema'
 import {eq} from 'drizzle-orm'
 const {creatorid} = Astro.props
 const data = await db.select().from(content).where(eq(content.creatorId, creatorid))
