@@ -1,6 +1,4 @@
 import { defineMiddleware } from "astro:middleware"
-// import { db } from "./utils/db"
-// import { Account, Session } from "./models/schema"
 import { db } from "./utils/mysql/index"
 import { Account, Session } from "./models/mysql/schema"
 import { eq, and } from "drizzle-orm"
