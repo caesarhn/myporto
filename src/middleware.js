@@ -10,7 +10,7 @@ export const onRequest = defineMiddleware(async (context, next) => {
     //console.log(await context.request.formData())
     //const Token = context.cookies.get("token")?.value ?? "no-token"
     const path = context.url.pathname.split('/')
-    console.log(path)
+    //console.log(path, context.request)
 
     const token = context.cookies.get("token")
     const findSessions = await db.select().from(Session).where(eq(Session.sessionId, token?.value != null ? token.value : ""))

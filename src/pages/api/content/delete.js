@@ -4,10 +4,10 @@ import { and, eq } from "drizzle-orm"
 
 export async function DELETE({params, request, cookies}) {
     const body = await request.json()
-    const cookie = cookies.get("token")
+    const token = cookies.get("token")
     var message = ""
 
-    const access = await db.select().from(Session).where(eq(Session.sessionId, cookie?.value))
+    const access = await db.select().from(Session).where(eq(Session.sessionId, token?.value))
     const contentData = await db.select().from(content).where(and(eq(content.id, body.id), eq(content.creatorId, access[0].creatorId)))
 
     if(contentData.length !== 0){

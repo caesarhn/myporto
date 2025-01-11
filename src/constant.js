@@ -5,7 +5,10 @@ export const PUBLIC_URL = [
   "/test-feature",
   "/porto",
   "/pilih-paket/paket-umroh",
-  "/sitemap.xml"
+  "/sitemap.xml",
+  
+  //testing
+  "/api/content/write-new"
 ]
 export const TOKEN = "jsaoweadvsvdmsdvfuuirebasdvs"
 export function makeToken(length) {

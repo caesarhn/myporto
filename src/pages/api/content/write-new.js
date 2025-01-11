@@ -1,8 +1,11 @@
-import {db} from "../../utils/mysql/index"
-import {content} from "../../models/mysql/schema"
+import {db} from "../../../utils/mysql/index"
+import {content} from "../../../models/mysql/schema"
 import { v4 as uuid } from 'uuid'
 
-export async function POST({params, request}) {
+export async function POST({params, request, cookies}) {
+    const token = cookies.get("token")
+    const param = params
+    //console.log("token: ", token, " params: ", param, " ", await request)
     const body = await request.json()
 
     //console.log("esfasd ", body.id)

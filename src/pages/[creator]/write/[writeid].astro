@@ -11,7 +11,7 @@ const {creator, writeid} = Astro.params
 
 const api = import.meta.env.GO_API
 
-const data = await db.select().from(contentComponent).where(eq(contentComponent.contentId, writeid))
+const data = await db.select().from(contentComponent).where(eq(contentComponent.contentId, writeid)).orderBy(contentComponent.index)
 const dataContent = await db.select().from(content).where(eq(content.id, writeid))
 ---
 

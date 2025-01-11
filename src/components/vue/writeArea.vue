@@ -154,12 +154,24 @@
             }
         })
         for(var i=0; i < inputs.value.length; i++){
-            await axios.get(props.api + '/api/getcontent/'+props.contentid+'/'+i).then(async (res) => {
-                if(res.data == ''){
+            await axios.get('/api/content/content-index',{
+                params: {
+                    index: i,
+                    content_id: props.contentid
+                }
+            }).then(async (res) => {
+                //console.log(res.data)
+                if(res.data.data == ''){
                     if(inputs.value[i].attribute.tag == '8'){
                         await Upload(i)
                     }
-                    await axios.post(props.api+'/api/postcontent', {},{
+                    await axios.post('/api/content/content-index', {
+                        index: i,
+                        content_id: props.contentid,
+                        content: inputs.value[i].input,
+                        tag: inputs.value[i].attribute.tag == '' ? 5 : inputs.value[i].attribute.tag,
+                        style: inputs.value[i].attribute.style
+                    },{
                         params: {
                             i: i,
                             content_id: props.contentid,
@@ -172,30 +184,29 @@
                     if(inputs.value[i].attribute.tag == '8'){
                         await Upload(i)
                     }
-                    await axios.put(props.api + '/api/updatecontent', {},{
-                        params: {
-                            id: res.data,
-                            i: i,
-                            content_id: props.contentid,
-                            content: inputs.value[i].input,
-                            tag: inputs.value[i].attribute.tag == '' ? 5 : inputs.value[i].attribute.tag,
-                            style: inputs.value[i].attribute.style
-                        }
-                    }).then( res => {
+                    //console.log("test: ",res.data)
+                    await axios.put('/api/content/content-index', {
+                        id: res.data.data.id,
+                        index: i,
+                        content_id: props.contentid,
+                        content: inputs.value[i].input,
+                        tag: inputs.value[i].attribute.tag == '' ? 5 : inputs.value[i].attribute.tag,
+                        style: inputs.value[i].attribute.style
+                    },{}).then( res => {
                         
                     })
                 }
             })
             if(inputs.value.length < props.datacontent.length){
-                await axios.delete(props.api + '/api/deletesubcontent',{
+                await axios.delete('/api/content/content-index',{
                     params: {
                         index: inputs.value.length - 1,
-                        contentid: props.contentid,
+                        content_id: props.contentid,
                     }
                 })
             }
         }
-        window.location = '/creator/read/'+props.contentid
+        //window.location = '/creator/read/'+props.contentid
     }
 
     async function Upload(index){
