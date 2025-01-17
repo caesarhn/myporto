@@ -4,6 +4,20 @@ import Card from '../components/Card.astro'
 import Banner from '../components/banner/BannerGrid.astro'
 import Footer from '../components/MainFooter.astro'
 export const prerender = false
+
+const webTemplate = [{
+	img: "https://th.bing.com/th/id/OIP.h_Ggv2dSVFkTQIvvZpjuLwAAAA?rs=1&pid=ImgDetMain",
+	link: "dfasdass"
+},{
+	img: "https://miro.medium.com/v2/resize:fit:3200/1*SNUFXbMYSOArQbA-Iwi-jA.png",
+	link: "safad"
+},{
+	img: "https://miro.medium.com/v2/resize:fit:3200/1*SNUFXbMYSOArQbA-Iwi-jA.png",
+	link: "safad"
+},{
+	img: "https://miro.medium.com/v2/resize:fit:3200/1*SNUFXbMYSOArQbA-Iwi-jA.png",
+	link: "safad"
+}]
 ---
 
 <Layout title="Engineering Sample.">
@@ -20,10 +34,10 @@ export const prerender = false
 	</div>
 
 	<br/>
-	<main>
-		<div id="welcome-content" class="">
-			<h1 class="text-5xl my-20 font-bold">Welcome to <span class="text-gradient">Engineering Sample</span></h1>
-			<p class="instructions">
+	<main class="w-full">
+		<div id="welcome-content" class="mx-auto sm:w-11/12 md:w-8/12 lg:w-1/2 xl:w-1/2">
+			<h1 class="text-5xl my-20 font-bold text-slate-200">Welcome to <span class="text-gradient">Engineering Sample</span></h1>
+			<p class="instructions text-amber-50">
 				Engineering Sample is a <span class="font-bold">content-based</span> website built with the purpose of sharing knowledge about technology. You can join as a writer to share your knowledge or as a reader to explore and gain knowledge.
 			</p>
 			<ul role="list" class="link-card-grid">
@@ -49,20 +63,37 @@ export const prerender = false
 				/>
 			</ul>
 		</div>
+		<hr class="my-36 border-slate-800"/>
+		<div id="content2" class="mx-auto sm:w-11/12 md:w-8/12 lg:w-1/2 xl:w-1/2">
+			<h1 class="text-4xl font-bold text-amber-50">Build portofolio for free</h1>
+			<p class="mt-10 text-lg font-semibold text-slate-200">Build your portofolio website for free, choose your template you like</p>
+		</div>
+		<div id="content2sub" class="w-full overflow-x-hidden mt-20">
+			<div id="scroll-object1" class="flex gap-10 max-w-max">
+				{
+					webTemplate.map( (item) => {
+						return <div class="min-h-80 scroll-box">
+							<img src={item.img} class="object-cover h-80 min-w-128"/>
+						</div>
+					})
+				}
+			</div>
+			<br/>
+			<div id="scroll-object2" class="flex gap-10 max-w-max">
+				{
+					webTemplate.map( (item) => {
+						return <div class="h-60 gap-10 scroll-box2">
+							<img src={item.img} class="max-h-60 min-w-96"/>
+						</div>
+					})
+				}
+			</div>
+		</div>
 	</main>
 	<Footer/>
 </Layout>
 
 <style>
-	main {
-		margin: auto;
-		padding: 1rem;
-		width: 800px;
-		max-width: calc(100% - 2rem);
-		color: white;
-		font-size: 20px;
-		line-height: 1.6;
-	}
 	.astro-a {
 		position: absolute;
 		top: -32px;
@@ -106,6 +137,23 @@ export const prerender = false
 	#welcome-content{
 		opacity: 0%;
 	}
+
+	#content2{
+		opacity: 0%;
+	}
+
+	#content2sub{
+		opacity: 0%;
+	}
+
+	#scroll-object1{
+		animation: scrolling-horizontal 30s linear infinite;
+	}
+
+	#scroll-object2{
+		animation: scrolling-horizontal2 20s linear infinite;
+	}
+
 	@keyframes appear{
 		0%{
 			position: relative;
@@ -118,16 +166,67 @@ export const prerender = false
 			opacity: 100%;
 		}
 	}
+
+	@keyframes scrolling-horizontal {
+		0%{
+			transform: translateX(0%);
+		}
+		100%{
+			transform: translateX(-154rem)
+		}
+	}
+
+	@keyframes scrolling-horizontal2 {
+		0%{
+			transform: translateX(-106rem);
+		}
+		100%{
+			transform: translateX(0%)
+		}
+	}
 </style>
 
 <script is:inline>
+	const scrollContent = document.getElementById("scroll-object1")
+	const scrollBoxs = Array.from(document.getElementsByClassName("scroll-box"))
+	const scrollContent2 = document.getElementById("scroll-object2")
+	const scrollBoxs2 = Array.from(document.getElementsByClassName("scroll-box2"))
+
+	scrollBoxs.forEach(box => {
+		const clone = box.cloneNode(true)
+		scrollContent.appendChild(clone)
+	})
+	scrollBoxs2.forEach(box => {
+		const clone = box.cloneNode(true)
+		scrollContent2.appendChild(clone)
+	})
+
+	console.log(scrollContent, scrollBoxs)
+
+	let scrolled = 0
+
 	window.addEventListener("scroll", function(event) {
-		//console.log(this.scrollY)
-		if(this.scrollY > 300){
-			const a = this.document.getElementById('welcome-content')
-			a.style.animationName = "appear"
-			a.style.animationDuration = "2s"
-			a.style.opacity = "100%"
+		if(this.scrollY > scrolled){
+			scrolled = this.scrollY
+			console.log(this.scrollY)
+
+			if(this.scrollY > 300){
+				const a = this.document.getElementById('welcome-content')
+				a.style.animationName = "appear"
+				a.style.animationDuration = "2s"
+				a.style.opacity = "100%"
+			}
+			if(this.scrollY > 800){
+				console.log("its triggered")
+				const a = this.document.getElementById('content2')
+				const b = this.document.getElementById('content2sub')
+				a.style.animationName = "appear"
+				a.style.animationDuration = "2s"
+				a.style.opacity = "100%"
+				b.style.animationName = "appear"
+				b.style.animationDuration = "2s"
+				b.style.opacity = "100%"
+			}
 		}
 	}, false);
 </script>

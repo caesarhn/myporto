@@ -8,7 +8,8 @@ export const PUBLIC_URL = [
   "/sitemap.xml",
   
   //testing
-  "/api/content/write-new"
+  "/api/content/write-new",
+  "/api/content/image"
 ]
 export const TOKEN = "jsaoweadvsvdmsdvfuuirebasdvs"
 export function makeToken(length) {

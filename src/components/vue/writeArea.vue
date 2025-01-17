@@ -206,14 +206,14 @@
                 })
             }
         }
-        //window.location = '/creator/read/'+props.contentid
+        window.location = '/creator/read/'+props.contentid
     }
 
     async function Upload(index){
         if(inputs.value[index].image){
             const fd = new FormData()
             fd.append('image', inputs.value[index].image, inputs.value[index].image.name)
-            await axios.post(props.api+'/api/upload-image', fd).then(res => {
+            await axios.post('/api/content/image', fd).then(res => {
                 console.log(res)
             })
         }
