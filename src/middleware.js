@@ -85,7 +85,6 @@ export const onRequest = defineMiddleware(async (context, next) => {
     }else{
         //check token expired
         console.log(Number(findSessions[0].expired))
-        console.log(Date.now() - 1725657249609)
         if(Number(findSessions[0].expired) < Date.now()){
             await db.delete(Session).where(eq(Session.sessionId, context.cookies.get("token")?.value))
             context.cookies.delete("token")
