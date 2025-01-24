@@ -4,6 +4,13 @@ dist/
 # generated types
 .astro/
 
+#image
+*.jpg
+*.jpeg
+*.webp
+*.png
+*.svg
+
 #file
 public/
 db/

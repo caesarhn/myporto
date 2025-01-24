@@ -31,12 +31,16 @@ const access = db.select().from(Session).where(eq(Session.sessionId, token.value
             <script is:inline define:vars={{api, id}}>
                 const write = document.getElementById("write-new")
                 write.addEventListener("click", async function (){
-                    await fetch('/api/write-new-content', {
+                    await fetch('/api/content/write-new', {
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json",
                         },
                         body: JSON.stringify({id}),
+                    }).then( res => {
+                        return res.json()
+                    }).then(data => {
+                        location.href = '/creator/write/'+data.url_id
                     })
                     // const data = {
                     //     creatorid: 'creatornumberone'
