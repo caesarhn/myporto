@@ -1,2 +1,0 @@
-ALTER TABLE `content_root` ADD `creator_id` varchar(32) NOT NULL;--> statement-breakpoint
-ALTER TABLE `content_root` ADD CONSTRAINT `content_root_creator_id_creator_id_fk` FOREIGN KEY (`creator_id`) REFERENCES `creator`(`id`) ON DELETE no action ON UPDATE no action;
