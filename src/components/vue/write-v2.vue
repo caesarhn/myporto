@@ -5,7 +5,7 @@
         <br/>
         <br/>
         <p class="w-full h-10"></p>
-        <h1 v-for="(x, i) in inputs" :key="i" :id="`input-${i}`"
+        <div v-for="(x, i) in inputs" :key="i" :id="`input-${i}`"
             contenteditable="true" 
             spellcheck="false"
             @click="edit(i)"
@@ -14,15 +14,17 @@
             @keydown="disabledEnter($event, i)"
             :ref="`ref-${i}`"
             :class="[
-                'bg-slate-400', 
-                'border-4', 
+                'focus:border-l-2',
+                'focus:border-l-black',
+                'ps-1',
                 'focus:outline-none', 
                 'w-full', 
                 'mb-2', 
                 {'text-xl': x.tag===0?true:false},
                 {'text-4xl font-bold': x.tag === 2?true:false},
                 {'text-2xl font-semibold': x.tag === 3?true:false},
-                `${x.hasOwnProperty('end')?'hidden':''}`]"> {{ x.content }}</h1>
+                {'text-xl text-gray-500': x.tag === 7?true:false},
+                `${x.hasOwnProperty('end')?'hidden':''}`]"> {{ x.content }}</div>
     </div>
     <button @click="uploadContent" class="h-10 w-20 bg-purple-500">UPLOAD</button>
 
@@ -31,9 +33,10 @@
         <button class="bg-slate-600 rounded-md px-2" @click="changeTag(2)">tittle</button>
         <button class="bg-slate-600 rounded-md px-2" @click="changeTag(3)">heade 1</button>
         <button class="bg-slate-600 rounded-md px-2">header 2</button>
-        <button class="bg-slate-600 rounded-md px-2">img link</button>
+        <button class="bg-slate-600 rounded-md px-2" @click="changeTag(7)">img link</button>
     </div>
-    <h1 >konten ini tai <span>kenapa yaaaa</span></h1>
+    <h1>konten ini tai <span>kenapa yaaaa</span></h1>
+    <button class="" @click="getContent">GET</button>
 </template>
 
 <script setup>
@@ -42,13 +45,13 @@
 
     const inputs = ref([
         {
-            content: "kenapa anjing kamu",
-            tag: 0,
-        },
-        {
             content: "",
             end: ""
         }
+    ])
+
+    const props = defineProps([
+        'contentid',
     ])
 
     const savingIndicator = ref(true)
@@ -89,7 +92,7 @@
 
     function changeTag(tag){
         inputs.value[edited.value].tag = tag
-        console.log("tag: ", inputs.value[edited.value].tag)
+        //console.log("tag: ", inputs.value[edited.value].tag)
     }
 
     const onInput = (event, index) => {
@@ -97,17 +100,10 @@
     }
 
     function updateFocus(){
-        // if(contentLength.value === 0 && keyPressed.value === "Backspace"){
-        //     console.log("hapus ini")
-        //     inputs.value.splice(edited.value, 1)
-        //     edited.value -= 1
-        //     triggerUpdateFocus.value = 1;
-        //     keyPressed.value = ""
-        // }
         element.value = document.getElementById(`input-${edited.value}`)
         
-        console.log("focus on: ", edited.value)
-        console.log(element.value)
+        //console.log("focus on: ", edited.value)
+        //console.log(element.value)
         element.value.focus()
 
         updateToolElement()
@@ -132,7 +128,7 @@
             keyPressed.value = event.key
             inputs.value.splice(edited.value + 1, 0, {
                 content: "",
-                tag: 0,
+                tag: 5,
             })
             edited.value += 1
             updateFocus()
@@ -149,7 +145,7 @@
     }
 
     function onKeyUpUpdate(event){
-        console.log("keyup: ", event.key)
+        //console.log("keyup: ", event.key)
         if(event.key === "Enter"){
             element.value.focus()
         }
@@ -160,20 +156,57 @@
         element.value.parentNode.insertBefore(tool.value, element.value)
     }
 
+    async function getContent(){
+        const data = await axios.get('/api/content/contents', {
+            params: {
+                content_id: props.contentid
+            }
+        }).then(res => {
+            return res.data
+        })
+
+        if(data.data.length > 0){
+            inputs.value = [{
+                content: "",
+                end: ""
+            }]
+            inputs.value.splice(0, 0, ...data.data)
+        }else{
+            inputs.value = [{
+                content: "",
+                tag: 5
+            },{
+                content: "",
+                end: ""
+            }]
+        }
+
+        //console.log(data)
+    }
+
     function uploadContent(){
         savingIndicator.value = false
         clearTimeout(timeOut.value)
+        //console.log(inputs.value)
         timeOut.value = setTimeout(() => {
 
-            const data = inputs.value.map(item => {
+            var data = inputs.value.map(item => {
                 if(item.content !== null && item.content !== ''){
-                    return item.content
+                    return {
+                        content: item.content,
+                        tag: item.tag
+                    }
                 }
             })
+            data = data.filter(item => item !== undefined)
+            
+            //console.log(data)
             axios.post('/api/content/contents', {
+                id: "dsadfa",
+                contentId: props.contentid,
                 data: JSON.stringify(data)
             },{}).then(res => {
-                console.log(res)
+                //console.log(res)
             })
 
             savingIndicator.value = true
@@ -181,7 +214,7 @@
     }
 
     onMounted( () => {
-
+        getContent()
     })
 
 </script>

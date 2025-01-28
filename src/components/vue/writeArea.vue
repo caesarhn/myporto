@@ -215,7 +215,7 @@
             fd.append('content_id', contentid)
             fd.append('index', index)
             await axios.post('/api/content/image', fd).then(res => {
-                console.log(res)
+                //console.log(res)
             })
         }
     }

@@ -11,7 +11,7 @@ const {id} = Astro.params
 const api = import.meta.env.GO_API
 
 const token = Astro.cookies.get("token")
-const access = db.select().from(Session).where(eq(Session.sessionId, token.value))
+//const access = db.select().from(Session).where(eq(Session.sessionId, token.value))
 
 ---
 
@@ -40,7 +40,7 @@ const access = db.select().from(Session).where(eq(Session.sessionId, token.value
                     }).then( res => {
                         return res.json()
                     }).then(data => {
-                        location.href = '/creator/write/'+data.url_id
+                        location.href = '/creator/write-v2/'+data.url_id
                     })
                     // const data = {
                     //     creatorid: 'creatornumberone'

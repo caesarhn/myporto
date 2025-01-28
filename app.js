@@ -11,6 +11,6 @@ app.use((req, res, next) => {
   ssrHandler(req, res, next, locals);
 });
 
-console.log("Server Listen ...")
+//console.log("Server Listen ...")
 app.listen(process.env.PORT || 80);
 //app.listen()
