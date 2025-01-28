@@ -12,7 +12,7 @@ await db.update(content).set({
 }).where(eq(content.id, id))
 const sub_content = await db.select().from(contentComponent).where(eq(contentComponent.contentId, id)).orderBy(contentComponent.index)
 const creatordesc = await db.select().from(creator).where(eq(creator.id, content_root[0].creatorId))
-//console.log(sub_content)
+console.log(sub_content)
 ---
 
 <!doctype html>
@@ -33,14 +33,17 @@ const creatordesc = await db.select().from(creator).where(eq(creator.id, content
             <br/>
             <div>
                 {sub_content.map(data => {
-                    if(data.tag == 2){
+                    if(data.tag == 3){
+                        return <h2 class="text-2xl sm:text-2xl md:text-xl lg:text-xl font-bold dark:text-white">{data.content}</h2> <br/>
+                    }
+                    else if(data.tag == 2){
                         return <h2 class="text-2xl sm:text-4xl md:text-4xl lg:text-2xl font-bold dark:text-white">{data.content}</h2> <br/>
                     }
                     else if(data.tag == 5){
                         return <p class="text-base md:text-lg sm:text-3xl text-gray-900 dark:text-white">{data.content}</p> <br/>
                     }
                     else if(data.tag == 8 || data.tag == 7){
-                        return <img src={"/"+data.content} class="w-1/2 mx-auto my-10"/>
+                        return <img src={"/"+data.content} class="w-2/3 mx-auto my-10"/>
                     }
                 })}
             </div>

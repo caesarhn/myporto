@@ -1,0 +1,17 @@
+---
+import Header from "../../../components/MainHeader.astro"
+import Input from "../../../components/vue/write-v2.vue"
+---
+
+<!doctype html>
+<html>
+    <head>
+        <title>writing</title>
+    </head>
+    <body>
+        <Header/>
+        <div class="mx-auto sm:w-11/12 md:w-2/3 lg:w-3/5">
+            <Input client:only="vue"/>
+        </div>
+    </body>
+</html>

@@ -17,7 +17,7 @@ export default {
 				'144': '40rem',
 			},
 			colors: {
-
+				'no-hightlight': '#6b7280',
 			},
 		},
 	},

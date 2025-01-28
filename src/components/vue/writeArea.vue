@@ -51,7 +51,7 @@
                             <p class="my-2 text-sm text-gray-500 dark:text-gray-400"><span class="font-semibold">Click to upload</span> or drag and drop</p>
                             <p class="text-xs text-gray-500 dark:text-gray-400">SVG, PNG, JPG or GIF (MAX. 800x400px)</p>
                         </div>
-                        <input :id="'file_input_'+i" type="file" class="hidden" @change="event => {
+                        <input :id="'file_input_'+i" type="file" class="hidden border-0" @change="event => {
                             ArrangeImageIndex()
                             FileOnChange(i, event.target.files[0])
                         }"/>

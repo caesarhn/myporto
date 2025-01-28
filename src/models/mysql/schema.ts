@@ -4,14 +4,14 @@ export const Account = mysqlTable('account', {
   id: varchar({length: 36}).primaryKey(),
   username: varchar({length: 128}).notNull().unique(),
   password: varchar({length: 128}).notNull(),
-  creatorId: varchar('creator_id', {length: 32}).notNull()
+  creatorId: varchar('creator_id', {length: 36}).notNull()
 })
 
 export const Session = mysqlTable('session', {
   id: varchar({length: 36}).primaryKey(),
-  accountId: varchar('account_id', {length: 32}).notNull().references(() => Account.id),
+  accountId: varchar('account_id', {length: 36}).notNull().references(() => Account.id),
   sessionId: varchar('session_id', {length: 128}).notNull(),
-  creatorId: varchar('creator_id', {length: 32}).notNull().references(() => creator.id),
+  creatorId: varchar('creator_id', {length: 36}).notNull().references(() => creator.id),
   expired: varchar({length: 128}).notNull()
 })
 
@@ -27,12 +27,13 @@ export const content = mysqlTable('content_root', {
   tittle: varchar('tittle', {length: 512}).notNull(),
   previewImg: varchar('preview_image', {length: 1048}),
   previewDesc: varchar('preview_description', {length: 1048}),
-  creatorId: varchar('creator_id', {length: 32}).notNull().references(() => creator.id),
-  posted: varchar('posted', {length: 32}).notNull(),
-  updated: varchar('updated', {length: 32}),
+  creatorId: varchar('creator_id', {length: 36}).notNull().references(() => creator.id),
+  posted: varchar('posted', {length: 36}).notNull(),
+  updated: varchar('updated', {length: 36}),
   view: int('view').default(0).notNull(),
   like: int('like').default(0).notNull(),
-  contentLink: varchar('content_link', {length: 1048})
+  contentLink: varchar('content_link', {length: 1048}),
+  category: varchar('category', {length: 50})
 })
 
 export const contentComponent = mysqlTable('content_component', {
@@ -40,6 +41,6 @@ export const contentComponent = mysqlTable('content_component', {
   index: int().notNull(),
   content: varchar({length: 10100}),
   tag: int(),
-  contentId: varchar('content_id', {length: 32}),
+  contentId: varchar('content_id', {length: 36}),
   style: varchar({length: 100})
 })
