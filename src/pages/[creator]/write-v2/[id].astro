@@ -1,8 +1,13 @@
 ---
+import { eq } from "drizzle-orm"
 import Header from "../../../components/MainHeader.astro"
 import Input from "../../../components/vue/write-v2.vue"
+import { content } from "../../../models/mysql/schema"
+import { db } from "../../../utils/mysql"
 
 const {creator, id} = Astro.params
+
+const data = await db.select().from(content).where(eq(content.id, id))
 ---
 
 <!doctype html>
@@ -13,7 +18,7 @@ const {creator, id} = Astro.params
     <body>
         <Header/>
         <div class="mx-auto sm:w-11/12 md:w-2/3 lg:w-3/5">
-            <Input contentid={id} client:only="vue"/>
+            <Input contentid={id} title={data[0].tittle} client:only="vue"/>
         </div>
     </body>
 </html>

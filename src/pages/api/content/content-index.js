@@ -9,8 +9,7 @@ export async function GET({params, url, cookies}){
     const index = url.searchParams.get("index")
     const token = cookies.get("token")
     var message = ""
-
-    console.log("index: ", index, " contentId: ", contentid)
+    //console.log("index: ", index, " contentId: ", contentid)
 
     const data = await db.select().from(contentComponent).where(and(eq(contentComponent.contentId, contentid), eq(contentComponent.index, index)))
 
@@ -32,7 +31,7 @@ export async function PUT({params, request, cookies}){
     const access = await db.select().from(Session).where(eq(Session.sessionId, token?.value))
     const contentData = await db.select().from(content).where(eq(content.id, body.content_id))
 
-    console.log(body)
+    //console.log(body)
     if(access[0].creatorId === contentData[0].creatorId){
         await db.update(contentComponent).set({
             index: body.index,

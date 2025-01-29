@@ -4,6 +4,7 @@
         <p :class="['text-sm', 'text-slate-400', {'hidden': savingIndicator}]">saving..</p>
         <br/>
         <br/>
+        <h1 contenteditable="true" id="title" class="text-4xl font-bold my-4" @change="inputTitle">{{ props.title }}</h1>
         <p class="w-full h-10"></p>
         <div v-for="(x, i) in inputs" :key="i" :id="`input-${i}`"
             contenteditable="true" 
@@ -52,6 +53,7 @@
 
     const props = defineProps([
         'contentid',
+        'title'
     ])
 
     const savingIndicator = ref(true)
@@ -95,15 +97,14 @@
         //console.log("tag: ", inputs.value[edited.value].tag)
     }
 
-    const onInput = (event, index) => {
-
+    function inputTitle(){
+        const element = document.getElementById('title')
+        console.log(element.innerHTML)
+        props.title = element.innerHTML
     }
 
     function updateFocus(){
         element.value = document.getElementById(`input-${edited.value}`)
-        
-        //console.log("focus on: ", edited.value)
-        //console.log(element.value)
         element.value.focus()
 
         updateToolElement()
@@ -114,8 +115,6 @@
         range.collapse(false);
         selection.removeAllRanges();
         selection.addRange(range);
-
-        //toolElement()
 
         triggerUpdateFocus.value = 0
     }
@@ -180,16 +179,24 @@
                 end: ""
             }]
         }
-
-        //console.log(data)
     }
 
     function uploadContent(){
         savingIndicator.value = false
+
         clearTimeout(timeOut.value)
         //console.log(inputs.value)
         timeOut.value = setTimeout(() => {
-
+            axios.put('/api/content/update-title', {
+                title: props.title,
+                contentid: props.contentid
+            },{
+                params: {
+                    title: props.title,
+                    contentid: props.contentid
+                }
+            })
+            
             var data = inputs.value.map(item => {
                 if(item.content !== null && item.content !== ''){
                     return {

@@ -15,6 +15,7 @@ dist/
 public/
 db/
 drizzle/
+certificate/
 
 # dependencies
 node_modules/

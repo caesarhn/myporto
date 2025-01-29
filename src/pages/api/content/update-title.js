@@ -15,7 +15,7 @@ export async function PUT({params, request, cookies}) {
         const newTitle = body.title
         const id = body.contentid
         console.log(access)
-        console.log("token: ", token, " creatorId: ", access.creatorId)
+        //console.log("token: ", token, " creatorId: ", access.creatorId)
     
         if(newTitle !== undefined && id !== undefined){
             await db.update(content).set({

@@ -41,6 +41,7 @@ export const contentComponent = mysqlTable('content_component', {
   index: int().notNull(),
   content: varchar({length: 10100}),
   tag: int(),
+  alt: varchar('alt', {length: 512}),
   contentId: varchar('content_id', {length: 36}),
   style: varchar({length: 100})
 })

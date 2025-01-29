@@ -20,7 +20,7 @@ export async function POST({request, cookies}) {
         status = 400
     }
     else if(contents != null && contents != undefined){
-        console.log("EXECUDET ", contents, "index: ", index)
+        //console.log("EXECUDET ", contents, "index: ", index)
         const arrayBuffer = await imageBlob.arrayBuffer();
         const buffer = Buffer.from(arrayBuffer);
         const fileName = `${Date.now()}-${imageBlob.name}`;
