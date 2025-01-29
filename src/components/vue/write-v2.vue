@@ -4,7 +4,7 @@
         <p :class="['text-sm', 'text-slate-400', {'hidden': savingIndicator}]">saving..</p>
         <br/>
         <br/>
-        <h1 contenteditable="true" id="title" class="text-4xl font-bold my-4" @change="inputTitle">{{ props.title }}</h1>
+        <input class="text-4xl font-bold my-4" v-model="title"/>
         <p class="w-full h-10"></p>
         <div v-for="(x, i) in inputs" :key="i" :id="`input-${i}`"
             contenteditable="true" 
@@ -56,6 +56,8 @@
         'title'
     ])
 
+    const title = ref()
+    title.value = props.title
     const savingIndicator = ref(true)
     const edited = ref(0)
     const cursorPosition = ref(0)
@@ -98,9 +100,6 @@
     }
 
     function inputTitle(){
-        const element = document.getElementById('title')
-        console.log(element.innerHTML)
-        props.title = element.innerHTML
     }
 
     function updateFocus(){
@@ -188,19 +187,21 @@
         //console.log(inputs.value)
         timeOut.value = setTimeout(() => {
             axios.put('/api/content/update-title', {
-                title: props.title,
+                title: title.value,
                 contentid: props.contentid
             },{
                 params: {
-                    title: props.title,
+                    title: title.value,
                     contentid: props.contentid
                 }
             })
+
+            console.log(title.value)
             
             var data = inputs.value.map(item => {
                 if(item.content !== null && item.content !== ''){
                     return {
-                        content: item.content,
+                        content: item.contentid,
                         tag: item.tag
                     }
                 }

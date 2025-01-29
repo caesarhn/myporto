@@ -9,6 +9,7 @@ export async function PUT({params, request, cookies}) {
     var status = 200
     const access = await db.select().from(Session).where(eq(Session.sessionId, token?.value))
 
+    console.log("acces: ", access)
     if(access == null || access == undefined){
         message = "Unauthorize request"
     }else{
