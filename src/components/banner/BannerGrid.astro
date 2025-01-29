@@ -1,21 +1,39 @@
 ---
+const device = Astro.locals.device
+const classbase = ["grid", "gap-px"]
+const deviceclass = device === "mobile"? "col-template-mobile":"col-template"
+
 var data = [[0, 0, 0]]
 let index = 0
 var gradienty = 0
-for(var i = 0; i <50; i++){
-    var gradientx = 0
-    for(var j =0; j <128; j++){
-        data[index] = [gradientx, gradienty, 50]
-        gradientx += 3
-        index++
+
+if(device === 'desktop'){
+    for(var i = 0; i <50; i++){
+        var gradientx = 0
+        for(var j =0; j <128; j++){
+            data[index] = [gradientx, gradienty, 50]
+            gradientx += 3
+            index++
+        }
+        gradientx = 0
+        gradienty += 3
     }
-    gradientx = 0
-    gradienty += 3
+}else{
+    for(var i = 0; i <30; i++){
+        var gradientx = 0
+        for(var j =0; j <50; j++){
+            data[index] = [gradientx, gradienty, 50]
+            gradientx += 3
+            index++
+        }
+        gradientx = 0
+        gradienty += 3
+    }
 }
 index = -1
 ---
-<div class="grid col-template gap-px">
-    {    data.map(item => {
+<div class:list={[...classbase, deviceclass]}>
+    {data.map(item => {
         index++
         return <div id={index.toString()} class="w-full aspect-square hover:bg-gray-700" style={"background-color: rgb("+item.join(",")+")"}>
 
@@ -23,7 +41,7 @@ index = -1
     })}
 </div>
 <button type="button" onclick="animates()" class="absolute max-h-7 my-1 text-white bg-purple-500 hover:bg-purple-300 font-medium rounded-lg text-sm px-5 py-1 dark:bg-purple-800 dark:hover:bg-purple-200">change</button>
-<div class="">
+<div class="absolute top-44 w-full text-center">
     <slot/>
 </div>
 
@@ -38,7 +56,6 @@ index = -1
     img.src = 'https://th.bing.com/th/id/OIP.zVhzq8tMP9G71Se7BQlragHaHa?rs=1&pid=ImgDetMain';
     img.onload = function() {
         arrImage[0] = imageToRGBArray(img);
-        console.log(arrImage);
     }
     const tai = "https://th.bing.com/th/id/OIP.YhFiBnpWWMHtxyKOXM8jvAHaEK?rs=1&pid=ImgDetMain"
     const im = "https://assets-a1.kompasiana.com/items/album/2017/10/11/fa4eb39b-fcfe-47a2-b60f-d778a1297192-59dda141bde5757bb35671f5.jpeg"
@@ -46,12 +63,8 @@ index = -1
     img2.src = 'https://th.bing.com/th/id/OIP.nrmRJp8CI8EKfkdEr2U6iwHaHa?w=626&h=626&rs=1&pid=ImgDetMain'
     img2.onload = function() {
         arrImage[1] = imageToRGBArray(img2);
-        console.log(arrImage);
     }
 
-    function klik(){
-        console.log("cliked ...")
-    }
     function animates(){
         var index = 0
         if(numimg == 0){
@@ -104,5 +117,10 @@ index = -1
 <style>
     .col-template{
         grid-template-columns: repeat(128, auto);
+    }
+
+
+    .col-template-mobile{
+        grid-template-columns: repeat(50, auto);
     }
 </style>

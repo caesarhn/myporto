@@ -4,8 +4,6 @@ import Preview from '../components/ContentPreview.astro'
 import Footer from '../components/MainFooter.astro'
 import Search from '../components/search.astro'
 
-//import {db} from '../utils/db'
-//import {creator, content} from '../models/schema'
 import {db} from '../utils/mysql/index'
 import {creator, content} from '../models/mysql/schema'
 import {eq, and} from 'drizzle-orm'
@@ -58,10 +56,10 @@ var currentindex = 0
                 <Search/>
             </div>
         </Header>
-        <main class="flex justify-between mb-0 w-2/3 mx-auto">
+        <main class="flex justify-between mb-0 sm:mx-5 md:mx-auto w-full sm:w-full md:w-1/2 lg:w-2/3 xl:w-2/3">
             <div class="h-fit" id="left">
-                <div class="">
-                    <ul class="flex gap-8 text-no-hightlight text-sm">
+                <div class="sm:mt-12 lg:mt-2">
+                    <ul class="flex gap-8 text-no-hightlight sm:text-4xl lg:text-sm">
                         {category.map(res => {
                             if(categoryRequested == res){
                                 return <li class="hover:bg-gray-100 px-1 pb-1 rounded-sm border-b-2 border-b-black text-black">
@@ -79,7 +77,7 @@ var currentindex = 0
                 {data.length !== 0 ? data.map(res => {
                 if(currentindex == indexads){
                     currentindex++
-                    return <div id="container-8f5553acd7adfb8f134758579134c77a" class="w-3/4 flex justify-center">
+                    return <div id="container-8f5553acd7adfb8f134758579134c77a" class="w-full flex justify-center">
                             <script type="text/javascript">
                                 atOptions = {
                                     'key' : '808329ac3ac48d8953233e1eb38fd206',
@@ -92,7 +90,7 @@ var currentindex = 0
                             <script type="text/javascript" src="//www.highperformanceformat.com/808329ac3ac48d8953233e1eb38fd206/invoke.js"></script>
                         </div>
                     <br/>
-                    <div class="w-3/4" onclick={"window.location.href="+"'/creator/read/"+res.content_root.id+"'"}>
+                    <div class="sm:w-full md:w-11/12 lg:w-3/4" onclick={"window.location.href="+"'/creator/read/"+res.content_root.id+"'"}>
                         <Preview 
                             buttonDeck="butt-deck"
                             creator_name={res.creator.name} 
@@ -103,11 +101,12 @@ var currentindex = 0
                             like={res.content_root.like}
                             view={res.content_root.view}
                             prev_desc={res.content_root.previewDesc}
+                            img_alt={`image for content ${res.content_root.tittle}`}
                             />
                     </div>
                 }else{
                     currentindex++
-                    return <div class="w-3/4" onclick={"window.location.href="+"'/creator/read/"+res.content_root.id+"'"}>
+                    return <div class="sm:w-full md:w-11/12 lg:w-3/4" onclick={"window.location.href="+"'/creator/read/"+res.content_root.id+"'"}>
                         <Preview 
                             buttonDeck="butt-deck"
                             creator_name={res.creator.name} 
@@ -118,6 +117,7 @@ var currentindex = 0
                             like={res.content_root.like}
                             view={res.content_root.view}
                             prev_desc={res.content_root.previewDesc}
+                            img_alt={`image for content ${res.content_root.tittle}`}
                         />
                     </div>
                 }}) : () => {
@@ -147,13 +147,8 @@ var currentindex = 0
         
             window.addEventListener('scroll', () => {
                 const pos = right.getBoundingClientRect()
-                //console.log("client: ", right.getBoundingClientRect())
 
                 if(pos.bottom > 0 && pos.top < 0){
-                    console.log("vdgafab")
-                    //right.style.position = "fixed"
-                    //right.style.top = "0px"
-                    //right.style.backgroundColor = "#000000"
                 }
 
             });
