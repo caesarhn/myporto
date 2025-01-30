@@ -10,9 +10,9 @@
             contenteditable="true" 
             spellcheck="false"
             @click="edit(i)"
-            @input="onInput($event, i)"
             @keyup="onKeyUpUpdate"
             @keydown="disabledEnter($event, i)"
+            @paste="onPaste($event, i)"
             :ref="`ref-${i}`"
             :class="[
                 'focus:border-l-2',
@@ -21,22 +21,24 @@
                 'focus:outline-none', 
                 'w-full', 
                 'mb-2', 
-                {'text-xl': x.tag===0?true:false},
+                {'text-xl': x.tag===5?true:false},
                 {'text-4xl font-bold': x.tag === 2?true:false},
                 {'text-2xl font-semibold': x.tag === 3?true:false},
                 {'text-xl text-gray-500': x.tag === 7?true:false},
-                `${x.hasOwnProperty('end')?'hidden':''}`]"> {{ x.content }}</div>
+                `${x.hasOwnProperty('end')?'hidden':''}`]">{{ x.content }}</div>
     </div>
+    
     <button @click="uploadContent" class="h-10 w-20 bg-purple-500">UPLOAD</button>
-
+    <div class="w-full" v-for="(x,i) in inputs" :id="`img-${i}`">
+        <img v-if="x.tag===7" :src="x.content" class="w-1/2 mx-auto"/>
+    </div>
     <div id="tools" class="flex gap-2 text-white text-sm">
-        <button class="bg-slate-600 rounded-md px-2" @click="changeTag(0)">p</button>
+        <button class="bg-slate-600 rounded-md px-2" @click="changeTag(5)">p</button>
         <button class="bg-slate-600 rounded-md px-2" @click="changeTag(2)">tittle</button>
         <button class="bg-slate-600 rounded-md px-2" @click="changeTag(3)">heade 1</button>
         <button class="bg-slate-600 rounded-md px-2">header 2</button>
         <button class="bg-slate-600 rounded-md px-2" @click="changeTag(7)">img link</button>
     </div>
-    <h1>konten ini tai <span>kenapa yaaaa</span></h1>
     <button class="" @click="getContent">GET</button>
 </template>
 
@@ -63,9 +65,7 @@
     const cursorPosition = ref(0)
     const contentLength = ref(0)
     const element = ref()
-    const keyPressed = ref()
     const timeOut = ref()
-    const triggerUpdateFocus = ref()
     const tool = ref()
     tool.value = document.getElementById("tools")
 
@@ -73,16 +73,35 @@
         edited.value = index
         element.value = document.getElementById(`input-${edited.value}`)
         updateToolElement()
+        updateImage(index)
+    }
+
+    function filterText(text){
+        if(text.endsWith("\n") || text.endsWith("\r\n")){
+            text = text.replace(/\n/g, '')
+            return text
+        }else{
+            return text
+        }
+    }
+
+    function updateImage(index){
+        if(inputs.value[index].tag===7){
+            const elmen = document.getElementById(`img-${index}`)
+            const tar = document.getElementById(`input-${index+1}`)
+            tar.parentNode.insertBefore(elmen, tar)
+        }
     }
 
     function calculateAll(event, index){
-        var inpute = event.target.innerText
-        if(inpute.endsWith("\n") || inpute.endsWith("\r\n")){
-            inpute = inpute.replace(/\n/g, '')
-            inputs.value[index].content = inpute
-        }else{
-            inputs.value[index].content = event.target.innerText
-        }
+        // var inpute = event.target.innerText
+        // if(inpute.endsWith("\n") || inpute.endsWith("\r\n")){
+        //     inpute = inpute.replace(/\n/g, '')
+        //     inputs.value[index].content = inpute
+        // }else{
+        //     inputs.value[index].content = event.target.innerText
+        // }
+        inputs.value[index].content = filterText(event.target.innerText)
 
         element.value = document.getElementById(`input-${edited.value}`)
         const selection = window.getSelection();
@@ -99,7 +118,10 @@
         //console.log("tag: ", inputs.value[edited.value].tag)
     }
 
-    function inputTitle(){
+    function onPaste(event, index){
+        inputs.value[index].content = filterText(event.target.innerText)
+
+        updateImage(index)  
     }
 
     function updateFocus(){
@@ -107,6 +129,7 @@
         element.value.focus()
 
         updateToolElement()
+        updateImage(edited.value)
         
         const range = document.createRange();
         const selection = window.getSelection();
@@ -115,7 +138,6 @@
         selection.removeAllRanges();
         selection.addRange(range);
 
-        triggerUpdateFocus.value = 0
     }
 
     function disabledEnter(event, index){
@@ -123,7 +145,6 @@
         
         if(cursorPosition.value === contentLength.value && event.key === "Enter"){
             event.preventDefault()
-            keyPressed.value = event.key
             inputs.value.splice(edited.value + 1, 0, {
                 content: "",
                 tag: 5,
@@ -134,7 +155,6 @@
         }
         else if(contentLength.value === 0 && event.key === "Backspace"){
             event.preventDefault()
-            keyPressed.value = event.key
             inputs.value.splice(edited.value, 1)
             edited.value -= 1
             updateFocus()
@@ -147,6 +167,8 @@
         if(event.key === "Enter"){
             element.value.focus()
         }
+        //inputs.value[edited.value].content = event.target.innerText
+        //console.log(inputs.value[edited.value])
     }
 
     function updateToolElement(){
@@ -196,19 +218,20 @@
                 }
             })
 
-            console.log(title.value)
+            //console.log(title.value)
             
+            console.log(inputs.value)
             var data = inputs.value.map(item => {
                 if(item.content !== null && item.content !== ''){
                     return {
-                        content: item.contentid,
+                        content: item.content,
                         tag: item.tag
                     }
                 }
             })
             data = data.filter(item => item !== undefined)
-            
             //console.log(data)
+            
             axios.post('/api/content/contents', {
                 id: "dsadfa",
                 contentId: props.contentid,

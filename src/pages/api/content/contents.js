@@ -36,36 +36,49 @@ export async function POST({params, request, cookies}){
     if(access[0].creatorId === contentData[0].creatorId){
         const check = await db.select().from(contentComponent).where(eq(contentComponent.contentId, body.contentId))
         const data = JSON.parse(body.data)
-        data.map(async (content, i) => {
-            if(content !== null || content !== ""){
+        //console.log(data)
+        //console.log(body)
+        data.map(async (item, i) => {
+            if(item !== null || item !== ""){
                 if(check.length-1 < i){
                     await db.insert(contentComponent).values({
                         id: uuid(),
                         index: i,
-                        content: content.content,
-                        tag: content.tag,
+                        content: item.content,
+                        tag: item.tag,
                         contentId: body.contentId,
                     })
                 }else{
                     await db.update(contentComponent)
                             .set({
-                                tag: content.tag,
-                                content: content.content
+                                tag: item.tag,
+                                content: item.content
                             })
                             .where(and(
                                 eq(contentComponent.contentId, body.contentId), 
                                 eq(contentComponent.index, i)
                             ))
                 }
+                if(item.tag === 7){
+                    await db.update(content)
+                        .set({
+                            previewImg: item.content
+                        }).where(eq(content.id, body.contentId))
+                }
+                if(i === 0 && item.tag === 5){
+                    await db.update(content)
+                        .set({
+                            previewDesc: item.content
+                        }).where(eq(content.id, body.contentId))
+                }
             }
         })
-        if(data.length < check.length){
-            await db.delete(contentComponent)
-                    .where(and(
-                        eq(contentComponent.contentId, body.contentId),
-                        gt(contentComponent.index, data.length)
-                    ))
-        }
+        const moreThan = data.length - 1
+        await db.delete(contentComponent)
+            .where(and(
+                eq(contentComponent.contentId, body.contentId),
+                gt(contentComponent.index, moreThan)
+            ))
     }
 
     return new Response(JSON.stringify({
