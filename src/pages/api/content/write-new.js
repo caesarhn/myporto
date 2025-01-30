@@ -12,7 +12,7 @@ export async function POST({params, request, cookies}) {
     const date = new Date(Date.now())
     const options = { day: '2-digit', month: 'short', year: 'numeric' }
     const formattedDate = date.toLocaleDateString('id-ID', options)
-    console.log("date: ",formattedDate)
+    //console.log("date: ",formattedDate)
     await db.insert(content).values({
         id: newId,
         tittle: "sadfas",

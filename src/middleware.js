@@ -40,7 +40,7 @@ export const onRequest = defineMiddleware(async (context, next) => {
                     if(result){
                         //init Token
                         const newtoken = makeToken(12)
-                        const expired = Date.now() + 3600000
+                        const expired = Date.now() + 14000000
                         context.cookies.set("user", findUser[0].username)
                         context.cookies.set("token", newtoken)
                         await db.insert(Session).values({

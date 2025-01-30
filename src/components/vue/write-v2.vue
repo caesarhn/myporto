@@ -94,13 +94,6 @@
     }
 
     function calculateAll(event, index){
-        // var inpute = event.target.innerText
-        // if(inpute.endsWith("\n") || inpute.endsWith("\r\n")){
-        //     inpute = inpute.replace(/\n/g, '')
-        //     inputs.value[index].content = inpute
-        // }else{
-        //     inputs.value[index].content = event.target.innerText
-        // }
         inputs.value[index].content = filterText(event.target.innerText)
 
         element.value = document.getElementById(`input-${edited.value}`)
@@ -120,8 +113,8 @@
 
     function onPaste(event, index){
         inputs.value[index].content = filterText(event.target.innerText)
-
-        updateImage(index)  
+        updateImage(index)
+        console.log(inputs.value[index])
     }
 
     function updateFocus(){
@@ -167,8 +160,6 @@
         if(event.key === "Enter"){
             element.value.focus()
         }
-        //inputs.value[edited.value].content = event.target.innerText
-        //console.log(inputs.value[edited.value])
     }
 
     function updateToolElement(){
