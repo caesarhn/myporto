@@ -7,12 +7,16 @@ import { v4 as uuid } from 'uuid'
 import bcrypt from 'bcrypt'
 
 export const onRequest = defineMiddleware(async (context, next) => {
+    const path = context.url.pathname.split('/')
     const {request, locals} = context
     const userAgent = request.headers.get('user-agent') || '';
     const isMobile = /mobile/i.test(userAgent);
     locals.device = isMobile ? 'mobile' : 'desktop';
 
-    const path = context.url.pathname.split('/')
+    if(path[2] == 'read' || PUBLIC_URL.includes(context.url.pathname)){
+        return next()
+    }
+
     const token = context.cookies.get("token")
     const findSessions = await db.select().from(Session).where(eq(Session.sessionId, token?.value != null ? token.value : ""))
 
