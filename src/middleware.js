@@ -7,6 +7,7 @@ import { v4 as uuid } from 'uuid'
 import bcrypt from 'bcrypt'
 
 export const onRequest = defineMiddleware(async (context, next) => {
+    const start = Date.now()
     const path = context.url.pathname.split('/')
     const {request, locals} = context
     const userAgent = request.headers.get('user-agent') || '';
@@ -14,6 +15,7 @@ export const onRequest = defineMiddleware(async (context, next) => {
     locals.device = isMobile ? 'mobile' : 'desktop';
 
     if(path[2] == 'read' || PUBLIC_URL.includes(context.url.pathname)){
+        console.log("time: ", Date.now())
         return next()
     }
 

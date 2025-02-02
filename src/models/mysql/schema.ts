@@ -1,4 +1,5 @@
-import { int, mysqlTable, varbinary, varchar } from 'drizzle-orm/mysql-core';
+import { max } from 'drizzle-orm';
+import { int, mediumtext, mysqlTable, varbinary, varchar } from 'drizzle-orm/mysql-core';
 
 export const Account = mysqlTable('account', {
   id: varchar({length: 36}).primaryKey(),
@@ -33,7 +34,8 @@ export const content = mysqlTable('content_root', {
   view: int('view').default(0).notNull(),
   like: int('like').default(0).notNull(),
   contentLink: varchar('content_link', {length: 1048}),
-  category: varchar('category', {length: 50})
+  category: varchar('category', {length: 50}),
+  content: mediumtext()
 })
 
 export const contentComponent = mysqlTable('content_component', {
@@ -44,4 +46,11 @@ export const contentComponent = mysqlTable('content_component', {
   alt: varchar('alt', {length: 512}),
   contentId: varchar('content_id', {length: 36}),
   style: varchar({length: 100})
+})
+
+export const contentComponentV3 = mysqlTable('content_component_v3', {
+  id: varchar({length: 36}).primaryKey(),
+  index: int().notNull(),
+  content: mediumtext(),
+  style: varchar({length: 5000})
 })

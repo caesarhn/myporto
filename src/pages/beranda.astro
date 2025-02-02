@@ -20,31 +20,57 @@ const searching = Astro.cookies.get("searching")?.value === undefined ? "disable
 
 var datas = []
 if(categoryRequested === null || categoryRequested === "All"){
-    datas = await db.select().from(creator).leftJoin(content, eq(creator.id, content.creatorId))
+    datas = await db.select({
+        creator: creator,
+        content_root: {
+            id: content.id,
+            tittle: content.tittle,
+            previewImg: content.previewImg,
+            previewDesc: content.previewDesc,
+            posted: content.posted,
+            like: content.like,
+            view: content.view,
+        }
+    }).from(creator).leftJoin(content, eq(creator.id, content.creatorId))
 }else{
-    datas = await db.select().from(creator).leftJoin(content, and(eq(creator.id, content.creatorId), eq(content.category, categoryRequested)))
+    datas = await db.select({
+        creator: creator,
+        content_root: {
+            id: content.id,
+            tittle: content.tittle,
+            previewImg: content.previewImg,
+            previewDesc: content.previewDesc,
+            posted: content.posted,
+            like: content.like,
+            view: content.view,
+        }
+    }).from(creator).leftJoin(content, and(eq(creator.id, content.creatorId), eq(content.category, categoryRequested)))
 }
 
 var indexads = 0
 var data = []
 
 if(datas.length !== 0 && datas[0].content_root !== null){
-    const dataFilter = datas?.filter(res => {
-        return res.content_root.tittle.includes(search)
-    })
-    
-    data = searching === "enable" ? dataFilter : datas
+    if(searching === "enable"){
+        const dataFilter = datas?.filter(res => {
+            return res.content_root.tittle.includes(search)
+        })
+        data = dataFilter
+    }else{
+        data = datas
+    }
+    //data = searching === "enable" ? dataFilter : datas
     Astro.cookies.set("searching", "disable")
-    
     indexads = Math.floor(Math.random() * (data.length - 1)) + 1
 }
 var currentindex = 0
 ---
 
 <!doctype html>
-<html lang="en" class="">
+<html lang="id" class="">
     <head>
         <link rel="icon" type="image/x-icon" href="/fav.ico">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="description" content="EngineeringSampel.com - Platform berbagi cerita & artikel inspiratif seputar teknologi, kesehatan, bisnis, dan lainnya. Baca pengalaman nyata atau tulis kisahmu sekarang!"/>
         <meta charset="UTF-8"/>
         <title>beranda</title>

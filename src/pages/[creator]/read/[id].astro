@@ -17,11 +17,12 @@ const description = content_root[0].previewDesc
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="id">
     <head>
         <link rel="icon" type="image/x-icon" href="/fav.ico">
         <meta charset="UTF-8" />
         <meta name="description" content={description}/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>{content_root[0]?.tittle}</title>
         <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
     </head>
@@ -34,7 +35,12 @@ const description = content_root[0].previewDesc
                 <p class="description"><span><a href="/porto">{creatordesc[0]?.name}</a></span> | <span>{content_root[0]?.posted}</span> | <span></span></p>
             </div>
             <br/>
-            <div>
+            <div id="raw-content" class="hidden">{content_root[0].content}</div>
+            <div id="contents" class="text-base md:text-lg sm:text-3xl text-justify text-gray-900 dark:text-white"></div>
+            <script>document.getElementById("contents").innerHTML = document.getElementById("raw-content").innerText</script>
+            
+            <!-- this for v1 and v2 -->
+            <!-- <div>
                 {sub_content.map(data => {
                     if(data.tag == 3){
                         return <h2 class="text-2xl sm:text-2xl md:text-xl lg:text-xl font-bold dark:text-white">{data.content}</h2> <br/>
@@ -52,7 +58,7 @@ const description = content_root[0].previewDesc
                         return <img src={"/"+data.content} class="w-2/3 mx-auto my-10" alt={data.alt}/>
                     }
                 })}
-            </div>
+            </div> -->
         </main>
         <div class="flex mx-auto w-1/2 mt-10">
             <script type="text/javascript">

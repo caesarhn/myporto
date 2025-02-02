@@ -1,5 +1,14 @@
 ---
+import { eq } from "drizzle-orm"
 import Header from "../../../components/MainHeader.astro"
+import Input from "../../../components/vue/write-v2.vue"
+import { content } from "../../../models/mysql/schema"
+import { db } from "../../../utils/mysql"
+
+const {creator, id} = Astro.params
+const contents = await db.select().from(content).where(eq(content.id, id))
+const con = contents[0].content
+console.log(contents)
 ---
 
 <!doctype html>
@@ -9,16 +18,188 @@ import Header from "../../../components/MainHeader.astro"
         <title>write</title>
     </head>
     <body>
+        <div id="saving" class="fixed w-fit text-green-400 left-1/2 top-5 hidden">Saving..</div>
+        <p id="content_id" class="hidden">{contents[0].id}</p>
         <Header/>
-        <div id="input" class="focus:outline-none" contenteditable="true">
+        <div class="sm:w-11/12 md:w-2/3 lg:w-1/2 mx-auto mt-12 mb-10">
+            <textarea id="title" class="w-full focus:outline-none focus:ring-0 border-none resize-none text-4xl font-bold overflow-hidden p-0" placeholder="Title.." spellcheck="false">{contents[0].tittle}</textarea>
+        </div>
+        <div id="input" 
+            spellcheck="false"
+            class="focus:outline-none sm:w-11/12 md:w-2/3 lg:w-1/2 mx-auto text-base md:text-lg sm:text-3xl text-justify text-gray-900 dark:text-white"
+            contenteditable="true"
+            set:html={con === null || con === ""?"<div></br></div>": contents[0].content}><div></br></div></div>
+        <button id="print">PRINT</button>
+        <button id="upload">UPLOAD</button>
 
+        <div id="contextMenu" style="display: none; position: absolute; background-color: #f0f0f0; border: 1px solid #ccc; padding: 10px;">
+            <button id="bold">Bold</button>
+            <button id="h2">h2</button>
+            <button id="img">img</button>
+        </div>
+
+        <div>
+            <button id="download">LOAD</button>
+            <div id="dataview"></div>
         </div>
     </body>
 </html>
 
 <script>
+    let timeoutId
+
+    async function autoSave() {
+        clearTimeout(timeoutId)
+        timeoutId = setTimeout(() => {
+            saving.classList.remove("hidden")
+            console.log("saving data..")
+            const post = {
+                data: element.innerHTML,
+                id: document.getElementById("content_id").innerText,
+                title: title.value,
+            }
+            fetch("/api/content/content-v3", {
+                method: "POST",
+                headers : {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(post),
+            })
+            setTimeout(() => {
+                saving.classList.add("hidden")
+            }, 1500);
+        }, 3000)  
+    }
+
+    const saving = document.getElementById("saving")
+
     const element = document.getElementById("input")
     element.addEventListener("keydown", event => {
-        console.log(event)
+        if(element.childElementCount <= 1 && event.key === "Backspace"){
+            if(element.firstChild.textContent.length === 0){
+                event.preventDefault()
+            }
+        }
+        autoSave()
     })
+
+    const title = document.getElementById("title")
+    title.addEventListener("input", event => {
+        title.style.height = "auto"
+        title.style.height = `${title.scrollHeight}px`
+        autoSave()
+    })
+
+    const print = document.getElementById("print")
+    print.addEventListener("click", event => {
+    })
+
+    const menu = document.getElementById('contextMenu')
+
+    element.addEventListener('mouseup', function(event) {
+        const selectedText = window.getSelection().toString()
+
+        if (selectedText.length > 0) {
+            const range = window.getSelection().getRangeAt(0)
+            const rect = range.getBoundingClientRect()
+            console.log(range)
+
+            menu.style.top = `${rect.bottom + window.scrollY}px`
+            menu.style.left = `${rect.left + window.scrollX}px`
+            menu.style.display = 'block'
+        } else {
+            menu.style.display = 'none'
+        }
+    });
+
+    document.addEventListener('selectionchange', () => {
+        const selectedElement = getSelectedElement();
+        if (selectedElement) {
+            //console.log('Teks dipilih dalam elemen:', selectedElement);
+        }
+    });
+
+    const bold = document.getElementById("bold")
+    bold.addEventListener("click", event => {
+        const range = getSelectedElement()
+        if(!(range.commonAncestorContainer.parentElement.tagName === "SPAN")){
+            const b = document.createElement("span")
+            b.style.fontWeight = "700"
+            range.surroundContents(b)
+        }else if(range.commonAncestorContainer.parentElement.tagName === "SPAN"){
+            const span = range.commonAncestorContainer.parentElement
+            const parent = range.commonAncestorContainer.parentElement.parentElement
+            while (span.firstChild) {
+                parent.insertBefore(span.firstChild, span);
+            }
+            parent.removeChild(span)
+        }
+        menu.style.display = 'none'
+        autoSave()
+    })
+
+    const h2 = document.getElementById("h2")
+    h2.addEventListener("click", event => {
+        const elementSelected = getSelectedElement().commonAncestorContainer.parentElement
+        // if(elementSelected.classList.contains("text-2xl") && elementSelected.classList.contains("font-semibold")){
+        //     elementSelected.classList.remove("text-2xl", "font-semibold")
+        // }else{
+        if(elementSelected.tagName === "H2"){
+            const addh2 = document.createElement("p")
+            addh2.innerText = elementSelected.innerText
+            elementSelected.parentNode.insertBefore(addh2, elementSelected)
+            elementSelected.remove()
+        }else{
+            const addh2 = document.createElement("h2")
+            addh2.classList.add("text-2xl", "font-semibold")
+            addh2.innerText = elementSelected.innerText
+            elementSelected.parentNode.insertBefore(addh2, elementSelected)
+            elementSelected.remove()
+        }
+        menu.style.display = 'none'
+        autoSave()
+    })
+
+    const img = document.getElementById("img")
+    img.addEventListener("click", event => {
+
+    })
+
+    const upload = document.getElementById("upload")
+    upload.addEventListener("click", async event => {
+        const post = {
+            data: element.innerHTML,
+            id: document.getElementById("content_id").innerText,
+            title: title.value,
+        }
+        await fetch("/api/content/content-v3", {
+            method: "POST",
+            headers : {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(post),
+        })
+    })
+
+    const download = document.getElementById("download")
+    download.addEventListener("click", async (event) => {
+        const dataElement = document.getElementById("dataview")
+        const data = await fetch("/api/content/content-v3").then(res => {
+            return res.json()
+        })
+        console.log(data)
+        dataElement.innerHTML = data.data[0].content
+    })
+
+    function getSelectedElement() {
+        const selection = document.getSelection();
+        if (selection.rangeCount > 0) {
+            const range = selection.getRangeAt(0);
+            //console.log(range)
+            return range
+            // const commonAncestor = range.commonAncestorContainer;
+            // return commonAncestor.nodeType === 1 ? commonAncestor : commonAncestor.parentElement;
+        }
+        return null;
+    }
 </script>
