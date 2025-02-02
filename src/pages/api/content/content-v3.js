@@ -8,7 +8,7 @@ export async function POST({params, request, cookies}){
     const token = cookies.get("token")
     var message = "yeeayyy"
 
-    console.log(body)
+    //console.log(body)
     const date = new Date(Date.now())
     const options = { day: '2-digit', month: 'short', year: 'numeric' }
     const formattedDate = date.toLocaleDateString('id-ID', options)
