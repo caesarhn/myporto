@@ -19,6 +19,9 @@ export default {
 			colors: {
 				'no-hightlight': '#6b7280',
 			},
+			fontFamily: {
+				'lato': ['Lato', 'sans-serif'],
+			}
 		},
 	},
 	plugins: [

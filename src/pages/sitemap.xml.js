@@ -11,6 +11,7 @@ export async function GET({ site }) {
       '/',
       '/about',
       '/beranda',
+      'age-calculator'
     ];
   
     // Gabungkan semua routes (statis + dinamis)

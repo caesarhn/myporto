@@ -41,7 +41,7 @@ const token = Astro.cookies.get("token")
                     }).then( res => {
                         return res.json()
                     }).then(data => {
-                        location.href = '/creator/write-v2/'+data.url_id
+                        location.href = '/creator/write-v3/'+data.url_id
                     })
                     // const data = {
                     //     creatorid: 'creatornumberone'

@@ -1,0 +1,142 @@
+---
+const time = Date.now()
+---
+
+<!DOCTYPE html>
+<html lang="id">
+    <head>
+        <link rel="icon" type="image/x-icon" href="/fav.ico">
+        <meta charset="UTF-8" />
+        <meta name="description" content="Age Calculator, Hitung umur-mu secara realtime. Hitung umur"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Lato:wght@300;700&display=swap" rel="stylesheet">
+        <title>Hitung Umur Realtime</title>
+    </head>
+    <body>
+        <div class="w-full h-full flex justify-between">
+            <div class="sm:hidden md:block w-1/12">
+                <div class="sm:hidden lg:block w-160 mx-10">
+                    <script type="text/javascript">
+                        atOptions = {
+                            'key' : '736f9878dc7f26f65eebba3adbec2842',
+                            'format' : 'iframe',
+                            'height' : 600,
+                            'width' : 160,
+                            'params' : {}
+                        };
+                    </script>
+                    <script type="text/javascript" src="//www.highperformanceformat.com/736f9878dc7f26f65eebba3adbec2842/invoke.js"></script>
+                </div>
+            </div>
+            <main class="sm:w-full lg:w-1/2 h-full font-lato bg-slate-100 py-10 rounded-md">
+                <h1 id="time" class="text-6xl font-extrabold w-fit mx-auto"></h1>
+                <div class="flex gap-24 w-fit mx-auto mt-10 font-bold">
+                    <div class="w-fit">
+                        <label for="" class="block my-2">Mode:</label>
+                        <select id="mode">
+                            <option selected value="1">Detik</option>
+                            <option value="2">Menit</option>
+                            <option value="3">Jam</option>
+                            <option value="4">Hari</option>
+                        </select>
+                        <label for="" class="block my-2">Time Type:</label>
+                        <select id="type">
+                            <option selected value="1">Realtime</option>
+                            <option value="2">Range</option>
+                        </select>
+                    </div>
+                    <div>
+                        <form id="datetimeForm">
+                            <label for="datetime" class="block my-2">Pilih Tanggal dan Jam Awal:</label>
+                            <input type="datetime-local" id="datetime" name="datetime">
+                        </form>
+                        <form id="datetimeFormEnd" class="hidden">
+                            <label for="datetimeend" class="block my-2">Pilih Tanggal dan Jam Akhir:</label>
+                            <input type="datetime-local" id="datetimeend" name="datetime">
+                        </form>
+                    </div>
+                </div>
+                <script is:inline define:vars={{time}}>
+                    var times = time / 1000
+                    var timestart, timeend = 0
+                    var sec, minutes, hour, days
+                    
+                    const container = document.getElementById("time")
+                    function clock(){
+                        setTimeout(() => {
+                            times = (Date.now() - timestart) /1000 ?? times
+                            if(type.value === "1"){
+                                document.getElementById("datetimeFormEnd").classList.add("hidden")
+                            }else{
+                                times = (timeend - timestart) / 1000
+                                document.getElementById("datetimeFormEnd").classList.remove("hidden")
+                            }
+
+                            sec = calculation(times % 60)
+                            minutes = calculation(times/60)
+                            
+                            if(mode.value === "1"){
+                                container.innerText = `${times??0}`
+                            }
+                            else if(mode.value === "2"){
+                                container.innerText = `${minutes}m ${sec}d`
+                            }
+                            else if(mode.value === "3"){
+                                hour = calculation((minutes>=60?minutes:1)/60)
+                                minutes = calculation(minutes - (hour * 60))
+                                container.innerText = `${hour}j ${minutes}m ${sec}d`
+                            }
+                            else if(mode.value === "4"){
+                                hour = calculation((minutes>=60?minutes:1)/60)
+                                minutes = calculation(minutes - (hour * 60))
+                                days = calculation((hour>=24?hour:1)/24)
+                                hour = calculation(hour - (days * 24))
+                                container.innerText = `${days}h ${hour}j ${minutes}m ${sec}d`
+                            }
+                            clock()
+                        }, 100)
+                    }
+
+                    function calculation(num){
+                        //console.log(num)
+                        if(num !== NaN){
+                            return Math.trunc(num)
+                        }else{
+                            return 0
+                        }
+                    }
+
+                    function apply(){
+                        const datetimeInput = document.getElementById("datetime").value
+                        const dateObj = new Date(datetimeInput);
+                        timestart = dateObj.getTime();
+
+                        const datetimeInputEnd = document.getElementById("datetimeend").value
+                        const dateObjEnd = new Date(datetimeInputEnd);
+                        timeend = dateObjEnd.getTime();
+                    }
+                    
+                    const start = document.getElementById("datetime")
+                    start.addEventListener("change", event => {
+                        apply()
+                    })
+                    
+                    const end = document.getElementById("datetimeend")
+                    end.addEventListener("change", event => {
+                        apply()
+                    })
+                    
+                    const mode = document.getElementById("mode")
+                    const type = document.getElementById("type")
+                    apply()
+                    console.log(mode.value)
+                    clock()
+                </script>
+            </main>
+            <div class="sm:hidden md:block w-1/12">
+            </div>
+        </div>
+        <script async="async" data-cfasync="false" src="//pl25752750.profitablecpmrate.com/ccd53a0de83c1dd439a9703922db422a/invoke.js"></script>
+        <div id="container-ccd53a0de83c1dd439a9703922db422a"></div>
+    </body>
+</html>

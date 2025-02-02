@@ -6,6 +6,7 @@ export const PUBLIC_URL = [
   "/porto",
   "/pilih-paket/paket-umroh",
   "/sitemap.xml",
+  "/age-calculator",
   
   //testing
   "/api/content/write-new",

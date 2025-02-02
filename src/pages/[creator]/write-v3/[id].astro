@@ -7,8 +7,8 @@ import { db } from "../../../utils/mysql"
 
 const {creator, id} = Astro.params
 const contents = await db.select().from(content).where(eq(content.id, id))
+console.log(contents, id)
 const con = contents[0].content
-console.log(contents)
 ---
 
 <!doctype html>
@@ -162,7 +162,13 @@ console.log(contents)
 
     const img = document.getElementById("img")
     img.addEventListener("click", event => {
-
+        const selectedElement = getSelectedElement().commonAncestorContainer.parentElement
+        const image = document.createElement("img")
+        image.src = selectedElement.innerText
+        image.classList.add("w-1/2", "mx-auto")
+        selectedElement.parentElement.insertBefore(image, selectedElement)
+        selectedElement.remove()
+        autoSave()
     })
 
     const upload = document.getElementById("upload")
