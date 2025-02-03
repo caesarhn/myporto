@@ -81,14 +81,12 @@ var currentindex = 0
             import { Modal } from 'flowbite'
         </script>
         <Header>
-            <div class="w-100">
-                <Search/>
-            </div>
+            <Search/>
         </Header>
-        <main class="flex justify-between mb-0 sm:mx-5 lg:mx-auto w-full sm:w-full md:w-1/2 lg:w-2/3 xl:w-4/5">
+        <main class="flex justify-between mb-0 sm:px-3 lg:mx-auto w-full sm:w-full md:w-1/2 lg:w-2/3 xl:w-4/5">
             <div class="h-fit sm:w-full lg:w-2/3 xl:w-1/2" id="left">
                 <div class="sm:mt-12 lg:mt-2">
-                    <ul class="flex gap-8 text-no-hightlight sm:text-4xl md:text-sm lg:text-sm">
+                    <ul class="flex gap-8 text-no-hightlight sm:text-md md:text-sm lg:text-sm overflow-x-scroll scrollbar-hidden">
                         {category.map(res => {
                             if(categoryRequested == res){
                                 return <li class="hover:bg-gray-100 px-1 pb-1 rounded-sm border-b-2 border-b-black text-black">

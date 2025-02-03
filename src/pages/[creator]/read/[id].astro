@@ -19,7 +19,6 @@ const description = content_root[0].previewDesc
 <!doctype html>
 <html lang="id">
     <head>
-        <meta name="google-adsense-account" content="ca-pub-8502078264600273">
         <link rel="icon" type="image/x-icon" href="/fav.ico">
         <meta charset="UTF-8" />
         <meta name="description" content={description}/>
@@ -28,8 +27,45 @@ const description = content_root[0].previewDesc
         <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
     </head>
     <body class="min-h-full bg-slate-100">
+        <script>
+            import { Modal } from 'flowbite'
+        </script>
         <Header/>
         <div class="flex sm:block md:hidden w-fit mx-auto mt-2">
+        </div>
+        <main class="sm:w-full sm:px-5 md:w-1/2 md:mx-auto lg:w-2/5 lg:mx-auto bg-slate-50 mt-20 pt-5">
+            <p id="cat" class="mb-8">{content_root[0]?.category}</p>
+            <div class="content-head">
+                <h1 class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 sm:text-3xl md:text-5xl lg:text-4xl dark:text-white">{content_root[0]?.tittle ?? "kosong"}</h1>
+                <p class="sm:text-sm md:text-md"><span class="mx-1"><a href="/porto">{creatordesc[0]?.name}</a></span> | <span class="mx-1">{content_root[0]?.posted}</span> | <span></span></p>
+            </div>
+            <br/>
+            <div id="raw-content" class="hidden">{content_root[0].content}</div>
+            <div id="contents" class="text-base md:text-lg sm:text-md text-justify text-gray-900 dark:text-white"></div>
+            <script>document.getElementById("contents").innerHTML = document.getElementById("raw-content").innerText</script>
+            
+            <!-- this for v1 and v2 -->
+            <!-- <div>
+                {sub_content.map(data => {
+                    if(data.tag == 3){
+                        return <h2 class="text-2xl sm:text-2xl md:text-xl lg:text-xl font-bold dark:text-white">{data.content}</h2> <br/>
+                    }
+                    else if(data.tag == 2){
+                        return <h2 class="text-2xl sm:text-4xl md:text-4xl lg:text-2xl font-bold dark:text-white">{data.content}</h2> <br/>
+                        }
+                        else if(data.tag == 5){
+                        return <p class="text-base md:text-lg sm:text-3xl text-justify text-gray-900 dark:text-white">{data.content}</p> <br/>
+                    }
+                    else if(data.tag == 7){
+                        return <img src={data.content} class="w-2/3 mx-auto my-10" alt={data.alt}/>
+                    }
+                    else if(data.tag == 8){
+                        return <img src={"/"+data.content} class="w-2/3 mx-auto my-10" alt={data.alt}/>
+                        }
+                })}
+            </div> -->
+        </main>
+        <div class="absolute sm:hidden lg:block top-32 left-3 w-64 h-128">
             <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8502078264600273"
             crossorigin="anonymous"></script>
             <ins class="adsbygoogle"
@@ -41,50 +77,6 @@ const description = content_root[0].previewDesc
                 (adsbygoogle = window.adsbygoogle || []).push({});
             </script>
         </div>
-        <div class="fixed sm:hidden lg:block top-32 left-3">
-            <script type="text/javascript">
-                atOptions = {
-                    'key' : '736f9878dc7f26f65eebba3adbec2842',
-                    'format' : 'iframe',
-                    'height' : 600,
-                    'width' : 160,
-                    'params' : {}
-                };
-            </script>
-            <script type="text/javascript" src="//www.highperformanceformat.com/736f9878dc7f26f65eebba3adbec2842/invoke.js"></script>
-        </div>
-        <main class="sm:w-full sm:px-5 md:w-1/2 md:mx-auto lg:w-2/5 lg:mx-auto bg-slate-50 mt-20 pt-5">
-            <p id="cat" class="mb-8">{content_root[0]?.category}</p>
-            <div class="content-head">
-                <h1 class="mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 sm:text-6xl md:text-5xl lg:text-4xl dark:text-white">{content_root[0]?.tittle ?? "kosong"}</h1>
-                <p class="description"><span class="mx-1"><a href="/porto">{creatordesc[0]?.name}</a></span> | <span class="mx-1">{content_root[0]?.posted}</span> | <span></span></p>
-            </div>
-            <br/>
-            <div id="raw-content" class="hidden">{content_root[0].content}</div>
-            <div id="contents" class="text-base md:text-lg sm:text-3xl text-justify text-gray-900 dark:text-white"></div>
-            <script>document.getElementById("contents").innerHTML = document.getElementById("raw-content").innerText</script>
-            
-            <!-- this for v1 and v2 -->
-            <!-- <div>
-                {sub_content.map(data => {
-                    if(data.tag == 3){
-                        return <h2 class="text-2xl sm:text-2xl md:text-xl lg:text-xl font-bold dark:text-white">{data.content}</h2> <br/>
-                    }
-                    else if(data.tag == 2){
-                        return <h2 class="text-2xl sm:text-4xl md:text-4xl lg:text-2xl font-bold dark:text-white">{data.content}</h2> <br/>
-                    }
-                    else if(data.tag == 5){
-                        return <p class="text-base md:text-lg sm:text-3xl text-justify text-gray-900 dark:text-white">{data.content}</p> <br/>
-                    }
-                    else if(data.tag == 7){
-                        return <img src={data.content} class="w-2/3 mx-auto my-10" alt={data.alt}/>
-                    }
-                    else if(data.tag == 8){
-                        return <img src={"/"+data.content} class="w-2/3 mx-auto my-10" alt={data.alt}/>
-                    }
-                })}
-            </div> -->
-        </main>
         <div class="flex mx-auto w-1/2 mt-10">
             <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8502078264600273"
             crossorigin="anonymous"></script>
@@ -97,17 +89,17 @@ const description = content_root[0].previewDesc
                 (adsbygoogle = window.adsbygoogle || []).push({});
             </script>
         </div>
-        <div class="flex mx-auto w-1/2 mt-5">
-            <script type="text/javascript">
-                atOptions = {
-                    'key' : '8b432e63494addb61dbf08287bbd1f35',
-                    'format' : 'iframe',
-                    'height' : 90,
-                    'width' : 728,
-                    'params' : {}
-                };
-                </script>
-            <script type="text/javascript" src="//www.highperformanceformat.com/8b432e63494addb61dbf08287bbd1f35/invoke.js"></script>
+        <div class="flex mx-auto w-1/2 h-fit mt-5">
+            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8502078264600273"
+            crossorigin="anonymous"></script>
+            <ins class="adsbygoogle"
+            style="display:block"
+            data-ad-format="autorelaxed"
+            data-ad-client="ca-pub-8502078264600273"
+            data-ad-slot="4786421263"></ins>
+            <script>
+                (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
         </div>
         <Footer/>
     </body>

@@ -18,9 +18,11 @@ const api = import.meta.env.GO_API
                 <div class="h-10 w-full">
                     <p>{res.tittle}</p>
                 </div>
-                <Button text="read" click={"window.location.href ='/creator/read/"+res.id+"'"}/>
-                <Button text="edit" click={"window.location.href ='/creator/write-v3/"+res.id+"'"}/>
-                <ButtonDelete text="delete" api={api} id={res.id}/>
+                <div class="flex flex-wrap gap-y-1">
+                    <Button text="read" click={"window.location.href ='/creator/read/"+res.id+"'"}/>
+                    <Button text="edit" click={"window.location.href ='/creator/write-v3/"+res.id+"'"}/>
+                    <ButtonDelete text="delete" api={api} id={res.id}/>
+                </div>
             </div>
             <hr class="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700"></hr>
         </div>

@@ -13,7 +13,7 @@ const time = Date.now()
         <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Lato:wght@300;700&display=swap" rel="stylesheet">
         <title>Hitung Umur Realtime</title>
     </head>
-    <body>
+    <body class="bg-slate-100">
         <div class="w-full h-full flex justify-between">
             <div class="sm:hidden md:block w-1/12">
                 <div class="sm:hidden lg:block w-160 mx-10">
@@ -29,31 +29,31 @@ const time = Date.now()
                     </script>
                 </div>
             </div>
-            <main class="sm:w-full lg:w-1/2 h-full font-lato bg-slate-100 py-10 rounded-md">
-                <h1 id="time" class="text-6xl font-extrabold w-fit mx-auto"></h1>
-                <div class="flex gap-24 w-fit mx-auto mt-10 font-bold">
-                    <div class="w-fit">
+            <main class="sm:w-full lg:w-1/2 h-full font-lato bg-white border-sky-800 border-8 py-10 rounded-md">
+                <h1 id="time" class="text-6xl font-extrabold w-fit mx-auto text-lime-900"></h1>
+                <div class="flex sm:gap-5 md:gap-24 w-fit mx-auto mt-10 font-bold">
+                    <div class="w-fit text-lime-950">
                         <label for="" class="block my-2">Mode:</label>
-                        <select id="mode">
+                        <select id="mode" class="bg-lime-800 text-amber-50 appearance-none rounded-md ring-sky-800">
                             <option selected value="1">Detik</option>
                             <option value="2">Menit</option>
                             <option value="3">Jam</option>
                             <option value="4">Hari</option>
                         </select>
                         <label for="" class="block my-2">Time Type:</label>
-                        <select id="type">
+                        <select id="type" class="bg-lime-800 text-amber-50 appearance-none rounded-md ring-sky-800">
                             <option selected value="1">Realtime</option>
                             <option value="2">Range</option>
                         </select>
                     </div>
-                    <div>
-                        <form id="datetimeForm">
+                    <div class="text-lime-950">
+                        <form id="datetimeForm" class="">
                             <label for="datetime" class="block my-2">Pilih Tanggal dan Jam Awal:</label>
-                            <input type="datetime-local" id="datetime" name="datetime">
+                            <input type="datetime-local" class="bg-lime-800 text-amber-50 appearance-none rounded-md" id="datetime" name="datetime">
                         </form>
                         <form id="datetimeFormEnd" class="hidden">
                             <label for="datetimeend" class="block my-2">Pilih Tanggal dan Jam Akhir:</label>
-                            <input type="datetime-local" id="datetimeend" name="datetime">
+                            <input type="datetime-local" class="bg-lime-800 text-amber-50 appearance-none rounded-md" id="datetimeend" name="datetime">
                         </form>
                     </div>
                 </div>
@@ -137,7 +137,18 @@ const time = Date.now()
             <div class="sm:hidden md:block w-1/12">
             </div>
         </div>
-        <script async="async" data-cfasync="false" src="//pl25752750.profitablecpmrate.com/ccd53a0de83c1dd439a9703922db422a/invoke.js"></script>
-        <div id="container-ccd53a0de83c1dd439a9703922db422a"></div>
+        <div class="h-60"></div>
+        <div class="w-full">
+            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8502078264600273"
+            crossorigin="anonymous"></script>
+            <ins class="adsbygoogle"
+            style="display:block"
+            data-ad-format="autorelaxed"
+            data-ad-client="ca-pub-8502078264600273"
+            data-ad-slot="4786421263"></ins>
+            <script>
+                (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </div>
     </body>
 </html>
