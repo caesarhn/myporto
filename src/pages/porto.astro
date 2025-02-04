@@ -39,7 +39,6 @@ const portofolio = [data, data2, data, data2, data]
     <div class="flex w-full">
         <div class="sm:w-full sm:overflow-x-scroll md:overflow-x-hidden md:w-2/3 lg:w-1/2 mx-auto mx-1/4 sm:flex md:grid md:gap-4 md:grid-cols-3">
             {portofolio.map(data =>{
-                console.log(data)
                 return(
                     <Box
                         image_url={data.project_image}
@@ -52,7 +51,6 @@ const portofolio = [data, data2, data, data2, data]
     </div>
     <ListLayout title={"sdafsad"}>
         {portofolio.map(data =>{
-            console.log(data)
             return(
                 <Box
                     image_url={data.project_image}

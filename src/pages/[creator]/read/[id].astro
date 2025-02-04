@@ -12,7 +12,6 @@ await db.update(content).set({
 }).where(eq(content.id, id))
 const sub_content = await db.select().from(contentComponent).where(eq(contentComponent.contentId, id)).orderBy(contentComponent.index)
 const creatordesc = await db.select().from(creator).where(eq(creator.id, content_root[0].creatorId))
-//console.log(sub_content)
 const description = content_root[0].previewDesc
 ---
 
@@ -25,10 +24,11 @@ const description = content_root[0].previewDesc
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>{content_root[0]?.tittle}</title>
         <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
+        <script is:inline async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8502078264600273" crossorigin="anonymous"></script>
     </head>
     <body class="min-h-full bg-slate-100">
-        <script>
-            import { Modal } from 'flowbite'
+        <script> 
+            import { Modal } from 'flowbite' 
         </script>
         <Header/>
         <div class="flex sm:block md:hidden w-fit mx-auto mt-2">
@@ -41,63 +41,15 @@ const description = content_root[0].previewDesc
             </div>
             <br/>
             <div id="raw-content" class="hidden">{content_root[0].content}</div>
-            <div id="contents" class="text-base md:text-lg sm:text-md text-justify text-gray-900 dark:text-white"></div>
-            <script>document.getElementById("contents").innerHTML = document.getElementById("raw-content").innerText</script>
-            
-            <!-- this for v1 and v2 -->
-            <!-- <div>
-                {sub_content.map(data => {
-                    if(data.tag == 3){
-                        return <h2 class="text-2xl sm:text-2xl md:text-xl lg:text-xl font-bold dark:text-white">{data.content}</h2> <br/>
-                    }
-                    else if(data.tag == 2){
-                        return <h2 class="text-2xl sm:text-4xl md:text-4xl lg:text-2xl font-bold dark:text-white">{data.content}</h2> <br/>
-                        }
-                        else if(data.tag == 5){
-                        return <p class="text-base md:text-lg sm:text-3xl text-justify text-gray-900 dark:text-white">{data.content}</p> <br/>
-                    }
-                    else if(data.tag == 7){
-                        return <img src={data.content} class="w-2/3 mx-auto my-10" alt={data.alt}/>
-                    }
-                    else if(data.tag == 8){
-                        return <img src={"/"+data.content} class="w-2/3 mx-auto my-10" alt={data.alt}/>
-                        }
-                })}
-            </div> -->
+            <div id="contents" set:html={content_root[0].content} class="text-base md:text-lg sm:text-md text-justify text-gray-900 dark:text-white"></div>
         </main>
-        <div class="absolute sm:hidden lg:block top-32 left-3 w-64 h-128">
-            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8502078264600273"
-            crossorigin="anonymous"></script>
-            <ins class="adsbygoogle"
-            style="display:block"
-            data-ad-format="autorelaxed"
-            data-ad-client="ca-pub-8502078264600273"
-            data-ad-slot="1510092054"></ins>
-            <script>
-                (adsbygoogle = window.adsbygoogle || []).push({});
-            </script>
-        </div>
-        <div class="flex mx-auto w-1/2 mt-10">
-            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8502078264600273"
-            crossorigin="anonymous"></script>
-            <ins class="adsbygoogle"
-            style="display:block"
-            data-ad-format="autorelaxed"
-            data-ad-client="ca-pub-8502078264600273"
-            data-ad-slot="4786421263"></ins>
-            <script>
-                (adsbygoogle = window.adsbygoogle || []).push({});
-            </script>
-        </div>
         <div class="flex mx-auto w-1/2 h-fit mt-5">
-            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8502078264600273"
-            crossorigin="anonymous"></script>
             <ins class="adsbygoogle"
             style="display:block"
             data-ad-format="autorelaxed"
             data-ad-client="ca-pub-8502078264600273"
             data-ad-slot="4786421263"></ins>
-            <script>
+            <script is:inline>
                 (adsbygoogle = window.adsbygoogle || []).push({});
             </script>
         </div>
