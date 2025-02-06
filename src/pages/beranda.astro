@@ -74,6 +74,7 @@ var currentindex = 0
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="description" content="EngineeringSampel.com - Platform berbagi cerita & artikel inspiratif seputar teknologi, kesehatan, bisnis, dan lainnya. Baca pengalaman nyata atau tulis kisahmu sekarang!"/>
         <meta charset="UTF-8"/>
+        <script is:inline async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8502078264600273" crossorigin="anonymous"></script>
         <title>beranda</title>
     </head>
     <body class="bg-gray-50 dark:bg-gray-900 min-h-full">
@@ -86,7 +87,7 @@ var currentindex = 0
         <main class="flex justify-between mb-0 sm:px-3 lg:mx-auto w-full sm:w-full md:w-1/2 lg:w-2/3 xl:w-4/5">
             <div class="h-fit sm:w-full lg:w-2/3 xl:w-1/2" id="left">
                 <div class="sm:mt-12 lg:mt-2">
-                    <ul class="flex gap-8 text-no-hightlight sm:text-md md:text-sm lg:text-sm overflow-x-scroll scrollbar-hidden">
+                    <ul class="flex gap-8 text-no-hightlight sm:text-md md:text-sm lg:text-sm overflow-x-scroll no-scrollbar">
                         {category.map(res => {
                             if(categoryRequested == res){
                                 return <li class="hover:bg-gray-100 px-1 pb-1 rounded-sm border-b-2 border-b-black text-black">
@@ -105,15 +106,13 @@ var currentindex = 0
                 if(currentindex == indexads){
                     currentindex++
                     return <div class="sm:w-full md:w-11/12 lg:w-3/4 flex justify-center">
-                        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8502078264600273"
-                        crossorigin="anonymous"></script>
                         <ins class="adsbygoogle"
                         style="display:block"
                         data-ad-format="fluid"
                         data-ad-layout-key="-fi-4h+8g-eu+jn"
                         data-ad-client="ca-pub-8502078264600273"
                         data-ad-slot="5250026516"></ins>
-                        <script>
+                        <script is:inline>
                             (adsbygoogle = window.adsbygoogle || []).push({});
                         </script>      
                     </div>
@@ -169,15 +168,13 @@ var currentindex = 0
                     </div>
                 </div>
                 <div class="w-full h-80">
-                    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8502078264600273"
-                    crossorigin="anonymous"></script>
                     <ins class="adsbygoogle"
                         style="display:block; text-align:center;"
                         data-ad-layout="in-article"
                         data-ad-format="fluid"
                         data-ad-client="ca-pub-8502078264600273"
                         data-ad-slot="9794377389"></ins>
-                    <script>
+                    <script is:inline>
                         (adsbygoogle = window.adsbygoogle || []).push({});
                     </script>
                 </div>

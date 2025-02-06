@@ -16,7 +16,10 @@ export async function POST({params, request, cookies}){
     await db.update(content).set({
         content: body.data,
         updated: formattedDate,
-        tittle: body.title
+        tittle: body.title,
+        previewImg: body.img_src,
+        previewDesc: body.desc,
+        category: body.category,
     }).where(eq(content.id, body.id))
 
     await db.insert(contentComponentV3).values({

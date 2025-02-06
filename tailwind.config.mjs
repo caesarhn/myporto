@@ -26,5 +26,17 @@ export default {
 	},
 	plugins: [
 		require('flowbite/plugin'),
+		function ({ addUtilities }) {
+			addUtilities({
+				'.no-scrollbar': {
+					/* Sembunyikan scrollbar untuk browser WebKit seperti Chrome, Safari, dan Opera */
+					'-webkit-overflow-scrolling': 'touch',
+					'scrollbar-width': 'none', /* Firefox */
+					'&::-webkit-scrollbar': {
+						display: 'none', /* WebKit */
+					},
+				},
+			});
+		},
 	],
 }

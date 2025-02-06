@@ -1,0 +1,60 @@
+---
+
+---
+
+<!DOCTYPE html>
+<html lang="id">
+    <head>
+        <link rel="icon" type="image/x-icon" href="/fav.ico">
+        <meta name="description" content="simple QR, cara generate kode QR, buat QR, kode QR, QRcode, cara buat kode QR" />
+        <script is:inline src="/module/qrcode.min.js"></script>
+        <title>Simple QR</title>
+    </head>
+    <body>
+        <div class="sm:w-11/12 md:w-3/4 xl:w-1/2 mx-auto mt-20">
+            <h1 class="w-fit mx-auto text-3xl font-bold text-slate-700 dark:text-slate-50">Simple QRCode Generator</h1>
+            <p class="w-fit mx-auto text-sm text-slate-700 dark:text-slate-50">by engineeringsampel.com</p>
+            <div class="sm:w-full md:w-1/2 mx-auto mt-20">
+                <textarea class="w-full rounded-md resize-none no-scrollbar" id="text"></textarea>
+            </div>
+            <br/>
+            <div class="w-fit flex gap-3 mx-auto">
+                <button id="generate" class="w-fit px-3 py-1 mt-5 bg-blue-500 rounded-md text-slate-50">generate</button>
+                <button id="download" class="w-fit px-3 py-1 mt-5 bg-blue-500 rounded-md text-slate-50 hidden">download</button>
+            </div>
+            <div id="qrcode" class="w-fit mx-auto mt-10"></div>
+            <script is:inline>
+                const qr = document.getElementById("qrcode")
+
+                const text = document.getElementById("text")
+                text.addEventListener("input", event => {
+                    text.style.height = "auto"
+                    text.style.height = `${text.scrollHeight}px`
+                })
+
+                const download = document.getElementById("download")
+                download.addEventListener("click", event => {
+                    if(qr.querySelector("canvas")){
+                        const image = qr.firstChild.toDataURL('image/png');
+                        const link = document.createElement('a');
+                        link.href = image;
+                        link.download = 'generated-qr.png';
+                        link.click();
+                    }
+                })
+
+                const gen = document.getElementById("generate")
+                gen.addEventListener("click", event => {
+                    qr.innerHTML = ""
+                    var qrcode = new QRCode(qr, {
+                        text: text.value,
+                        width: 365,
+                        height: 365,
+                    })
+
+                    download.classList.remove("hidden")
+                })
+            </script>
+        </div>
+    </body>
+</html>

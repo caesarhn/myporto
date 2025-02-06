@@ -32,9 +32,9 @@ export const onRequest = defineMiddleware(async (context, next) => {
         }
         else if(context.url.pathname == "/login" && context.request.method == "POST"){
             const data = await context.request.formData()
-            const start = Date.now()
-            const password = await bcrypt.hash(data.get("password"), 11)
-            const end = Date.now() - start
+            //const start = Date.now()
+            //const password = await bcrypt.hash(data.get("password"), 7)
+            //const end = Date.now() - start
             //console.log(data.get("password"), " ", password, " in ", end, "ms")
             const findUser = await db.select().from(Account).where(eq(Account.username, data.get("username")))
             //console.log(findUser.length)
@@ -94,6 +94,11 @@ export const onRequest = defineMiddleware(async (context, next) => {
             await db.delete(Session).where(eq(Session.sessionId, context.cookies.get("token")?.value))
             context.cookies.delete("token")
             context.cookies.delete("user")
+            return context.redirect("/login", 302)
+        }
+        else if(path[1] === "logout"){
+            //console.log("logout")
+            await db.delete(Session).where(eq(Session.sessionId, context.cookies.get("token")?.value))
             return context.redirect("/login", 302)
         }
         else if(path[1] === "api"){
