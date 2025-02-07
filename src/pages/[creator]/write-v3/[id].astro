@@ -29,17 +29,21 @@ const option = [
         <div id="saving" class="fixed w-fit text-green-400 left-1/2 top-5 hidden">Saving..</div>
         <p id="content_id" class="hidden">{contents[0].id}</p>
         <Header/>
-        <div class="sm:w-11/12 md:w-2/3 lg:w-1/2 mx-auto mt-12 mb-10">
+        <div class="sm:w-11/12 md:w-2/3 lg:w-1/2 mx-auto mt-10 mb-7">
             <div class="flex my-7 gap-9 items-center">
                 <label class="h-fit text-xl font-semibold">Category :</label>
                 <select id="category" class="rounded-lg">
-                    <option disabled selected>Pilih Kategori..</option>
+                    <option disabled selected value="">Pilih Kategori..</option>
                     {option.map(opt => {
                         return <option value={opt.value} label={opt.label} selected={contents[0].category === opt.value}></option>
                     })}
                 </select>
             </div>
             <textarea id="title" class="w-full focus:outline-none focus:ring-0 border-none resize-none text-4xl font-bold overflow-hidden p-0" placeholder="Title.." spellcheck="false">{contents[0].tittle}</textarea>
+            <div class="mt-4 flex gap-5">
+                <label>Meta Deskripsi :</label>
+                <input id="description" class="outline-none w-full" value={contents[0].previewDesc}/>
+            </div>
         </div>
         <div id="input" 
             spellcheck="false"
@@ -49,12 +53,17 @@ const option = [
         <button id="print">PRINT</button>
         <button id="upload">UPLOAD</button>
 
-        <div id="contextMenu" style="display: none; position: absolute; background-color: #f0f0f0; border: 1px solid #ccc; padding: 10px;">
-            <button id="bold">Bold</button>
-            <button id="h2">h2</button>
-            <button id="img">img</button>
+        <div id="contextMenu" class="absolute hidden bg-slate-300 border-spacing-1 p-2">
+            <div class="flex gap-2">
+                <button id="bold" class="hover:bg-slate-50 p-1 rounded-sm text-xl font-bold">B</button>
+                <button id="h2" class="hover:bg-slate-50 p-1 rounded-sm">h2</button>
+                <button id="img" class="hover:bg-slate-50 p-1 rounded-sm">
+                    <img src="/img.webp" loading="lazy" class="w-6"/>
+                </button>
+                <button id="link" class="hover:bg-slate-50 p-1 rounded-sm text-sm">https..</button>
+            </div>
         </div>
-
+        <input id="link-input" class="absolute hidden w-14 bg-slate-300"/>
         <div>
             <button id="download">LOAD</button>
             <div id="dataview"></div>
@@ -64,18 +73,35 @@ const option = [
 
 <script>
     let timeoutId
+    var linked
+
+    const desc = document.getElementById("description")
+    desc.addEventListener("input", event => {
+        autoSave()
+    })
 
     async function autoSave() {
         clearTimeout(timeoutId)
         timeoutId = setTimeout(() => {
             saving.classList.remove("hidden")
-            console.log("saving data..")
+
+            const childNodes = element.childNodes;
+            // Iterasi melalui node anak secara terbalik untuk menghindari masalah saat menghapus node
+            for (let i = childNodes.length - 1; i >= 0; i--) {
+                const node = childNodes[i];
+                // Periksa apakah node adalah node teks dan tidak hanya berisi spasi kosong
+                if (node.nodeType === Node.TEXT_NODE && node.textContent.trim() !== '') {
+                // Hapus node teks
+                    element.removeChild(node);
+                }
+            }
+            //console.log("saving data..")
             const post = {
                 data: element.innerHTML,
                 id: document.getElementById("content_id").innerText,
                 title: title.value,
-                desc: element.firstChild.textContent,
-                img_src: element.querySelector("img").src,
+                desc: desc.value,
+                img_src: element.querySelector("img")?.src,
                 category: cat.value
             }
             fetch("/api/content/content-v3", {
@@ -102,6 +128,13 @@ const option = [
         }
         autoSave()
     })
+    element.addEventListener("paste", event => {
+        event.preventDefault()
+        const text = event.clipboardData.getData("text/plain")
+        const newElement = document.createElement("p")
+        newElement.innerHTML = text
+        element.appendChild(newElement)
+    })
 
     const title = document.getElementById("title")
     title.addEventListener("input", event => {
@@ -122,13 +155,13 @@ const option = [
         if (selectedText.length > 0) {
             const range = window.getSelection().getRangeAt(0)
             const rect = range.getBoundingClientRect()
-            console.log(range)
+            //console.log(range)
 
             menu.style.top = `${rect.bottom + window.scrollY}px`
             menu.style.left = `${rect.left + window.scrollX}px`
-            menu.style.display = 'block'
+            menu.classList.remove("hidden")
         } else {
-            menu.style.display = 'none'
+            menu.classList.add("hidden")
         }
     });
 
@@ -161,9 +194,6 @@ const option = [
     const h2 = document.getElementById("h2")
     h2.addEventListener("click", event => {
         const elementSelected = getSelectedElement().commonAncestorContainer.parentElement
-        // if(elementSelected.classList.contains("text-2xl") && elementSelected.classList.contains("font-semibold")){
-        //     elementSelected.classList.remove("text-2xl", "font-semibold")
-        // }else{
         if(elementSelected.tagName === "H2"){
             const addh2 = document.createElement("p")
             addh2.innerText = elementSelected.innerText
@@ -176,7 +206,7 @@ const option = [
             elementSelected.parentNode.insertBefore(addh2, elementSelected)
             elementSelected.remove()
         }
-        menu.style.display = 'none'
+        menu.classList.add("hidden")
         autoSave()
     })
 
@@ -191,6 +221,43 @@ const option = [
         autoSave()
     })
 
+    const linkInput = document.getElementById("link-input")
+    const link = document.getElementById("link")
+    link.addEventListener("click", event => {
+        const range = getSelectedElement()
+        if(!(range.commonAncestorContainer.parentElement.tagName === "A")){
+            const a = document.createElement("a")
+            const loc = window.getSelection().getRangeAt(0)
+            const rect = loc.getBoundingClientRect()
+
+            linkInput.style.top = `${rect.bottom + window.scrollY - 45}px`
+            linkInput.style.left = `${rect.left + window.scrollX}px`
+
+            linkInput.classList.remove("hidden")
+            linked = a
+            a.classList.add("underline")
+            a.href = "/beranda"
+            range.surroundContents(a)
+        }else if(range.commonAncestorContainer.parentElement.tagName === "A"){
+            const a = range.commonAncestorContainer.parentElement
+            const parent = range.commonAncestorContainer.parentElement.parentElement
+            while (a.firstChild) {
+                parent.insertBefore(a.firstChild, a);
+            }
+            parent.removeChild(a)
+        }
+        menu.classList.add("hidden")
+        autoSave()
+    })
+    linkInput.addEventListener("keydown", event => {
+        if(event.key === "Enter"){
+            event.preventDefault()
+            linked.href = linkInput.value
+            linkInput.classList.add("hidden")
+            autoSave()
+        }
+    })
+
     const cat = document.getElementById("category")
     cat.addEventListener("change", event => {
         autoSave()
@@ -198,19 +265,7 @@ const option = [
 
     const upload = document.getElementById("upload")
     upload.addEventListener("click", async event => {
-        const post = {
-            data: element.innerHTML,
-            id: document.getElementById("content_id").innerText,
-            title: title.value,
-            desc: element.firstChild.textContent
-        }
-        await fetch("/api/content/content-v3", {
-            method: "POST",
-            headers : {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(post),
-        })
+        autoSave()
     })
 
     const download = document.getElementById("download")

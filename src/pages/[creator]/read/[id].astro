@@ -7,6 +7,7 @@ import {eq} from 'drizzle-orm'
 
 const {creatorname, id} = Astro.params
 const content_root = await db.select().from(content).where(eq(content.id, id))
+console.log(content_root)
 await db.update(content).set({
     view: content_root[0].view + 1
 }).where(eq(content.id, id))
