@@ -2,17 +2,11 @@
 import Header from "../../../components/MainHeader.astro"
 import ContentColection from "../../../components/ContentColection.astro"
 import Button from "../../../components/button/button_default.astro"
-import {db} from "../../../utils/mysql/index"
-import { eq } from "drizzle-orm"
-import {content, Session} from "../../../models/mysql/schema"
-import { v4 as uuid } from 'uuid'
 
 const {id} = Astro.params
 const api = import.meta.env.GO_API
 
 const token = Astro.cookies.get("token")
-//const access = db.select().from(Session).where(eq(Session.sessionId, token.value))
-
 ---
 
 <html lang="en">
@@ -44,26 +38,6 @@ const token = Astro.cookies.get("token")
                     }).then(data => {
                         location.href = '/creator/write-v3/'+data.url_id
                     })
-                    // const data = {
-                    //     creatorid: 'creatornumberone'
-                    // }
-                    // const urlParams = new URLSearchParams({
-                    //     creatorid: 'creatornumberone'
-                    // }).toString()
-                    // console.log("post new content")
-                    // await fetch(api + `/api/addnewcontent?${urlParams}`, {
-                    //     method: 'POST',
-                    //     mode: 'cors',
-                    //     headers: {
-                    //         'Content-Type': 'application/json',
-                    //     },
-                    //     body: JSON.stringify(data),
-                    // }).then(res => {
-                    //     return res.json()
-                    // }).then(data => {
-                    //     console.log(data)
-                    //     location.href = '/creator/write/'+data.Data
-                    // })
                 })
             </script>
         </div>

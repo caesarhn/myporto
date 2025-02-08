@@ -37,3 +37,6 @@ pnpm-debug.log*
 
 #databases
 db.sqlite3
+
+#executable
+*.exe

@@ -1,14 +1,11 @@
 ---
 import { eq } from "drizzle-orm"
 import Header from "../../../components/MainHeader.astro"
-import Input from "../../../components/vue/write-v2.vue"
 import { content } from "../../../models/mysql/schema"
 import { db } from "../../../utils/mysql"
-import { Value } from "sass"
 
-const {creator, id} = Astro.params
+const {creatorname, id} = Astro.params
 const contents = await db.select().from(content).where(eq(content.id, id))
-//console.log(contents, id)
 const con = contents[0].content
 
 const option = [
@@ -282,10 +279,7 @@ const option = [
         const selection = document.getSelection();
         if (selection.rangeCount > 0) {
             const range = selection.getRangeAt(0);
-            //console.log(range)
             return range
-            // const commonAncestor = range.commonAncestorContainer;
-            // return commonAncestor.nodeType === 1 ? commonAncestor : commonAncestor.parentElement;
         }
         return null;
     }
