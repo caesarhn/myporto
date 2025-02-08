@@ -2,7 +2,7 @@ import {drizzle} from 'drizzle-orm/mysql2'
 import mysql from 'mysql2/promise';
 
 const host = import.meta.env.HOST
-const user = import.meta.env.USER
+const user = import.meta.env.SECRET_USER
 const password = import.meta.env.PASSWORD
 const database = import.meta.env.DATABASE
 
