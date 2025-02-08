@@ -20,7 +20,7 @@ export async function POST({params, request, cookies}) {
         posted: formattedDate,
         view: 0,
         like: 0,
-        contentLink: "sdafsa"
+        
     })
 
     return new Response(JSON.stringify({
