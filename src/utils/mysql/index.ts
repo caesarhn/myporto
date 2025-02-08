@@ -6,6 +6,8 @@ const user = import.meta.env.USER
 const password = import.meta.env.PASSWORD
 const database = import.meta.env.DATABASE
 
+console.log(host, user, password, database)
+
 const conn = mysql.createPool({
   host: host,
   user: user,
