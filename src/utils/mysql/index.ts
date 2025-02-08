@@ -1,11 +1,16 @@
 import {drizzle} from 'drizzle-orm/mysql2'
 import mysql from 'mysql2/promise';
 
+const host = import.meta.env.HOST
+const user = import.meta.env.USER
+const password = import.meta.env.PASSWORD
+const database = import.meta.env.DATABASE
+
 const conn = mysql.createPool({
-  host: '103.163.138.86',
-  user: 'sewamo23_caesar',
-  password: 'alwaysopen1',
-  database: 'sewamo23_my_porto',
+  host: host,
+  user: user,
+  password: password,
+  database: database,
   waitForConnections: true,
   connectionLimit: 10,
   queueLimit: 0,

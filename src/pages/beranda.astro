@@ -117,7 +117,7 @@ var currentindex = 0
                         </script>      
                     </div>
                     <br/>
-                    <div class="sm:w-full md:w-11/12 lg:w-3/4" onclick={"window.location.href="+"'/creator/read/"+res.content_root.id+"'"}>
+                    <div class="sm:w-full md:w-11/12 lg:w-3/4" onclick={"window.location.href="+"'/"+res.creator.name+"/read/"+res.content_root.id+"'"}>
                         <Preview 
                             buttonDeck="butt-deck"
                             creator_name={res.creator.name} 
@@ -133,7 +133,7 @@ var currentindex = 0
                     </div>
                 }else{
                     currentindex++
-                    return <div class="sm:w-full md:w-11/12 lg:w-3/4" onclick={"window.location.href="+"'/creator/read/"+res.content_root.id+"'"}>
+                    return <div class="sm:w-full md:w-11/12 lg:w-3/4" onclick={"window.location.href="+"'/"+res.creator.name+"/read/"+res.content_root.id+"'"}>
                         <Preview 
                             buttonDeck="butt-deck"
                             creator_name={res.creator.name} 

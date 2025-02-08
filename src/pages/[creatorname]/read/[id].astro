@@ -2,17 +2,14 @@
 import Header from "../../../components/MainHeader.astro"
 import Footer from '../../../components/MainFooter.astro'
 import {db} from '../../../utils/mysql/index'
-import {content, contentComponent, creator} from '../../../models/mysql/schema'
-import {eq} from 'drizzle-orm'
+import {content} from '../../../models/mysql/schema'
+import {eq, sql} from 'drizzle-orm'
 
 const {creatorname, id} = Astro.params
 const content_root = await db.select().from(content).where(eq(content.id, id))
-console.log(content_root)
 await db.update(content).set({
-    view: content_root[0].view + 1
+    view: sql`${content.view} + 1`
 }).where(eq(content.id, id))
-const sub_content = await db.select().from(contentComponent).where(eq(contentComponent.contentId, id)).orderBy(contentComponent.index)
-const creatordesc = await db.select().from(creator).where(eq(creator.id, content_root[0].creatorId))
 const description = content_root[0].previewDesc
 ---
 
@@ -38,7 +35,7 @@ const description = content_root[0].previewDesc
             <p id="cat" class="mb-8">{content_root[0]?.category}</p>
             <div class="content-head">
                 <h1 class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 sm:text-3xl md:text-5xl lg:text-4xl dark:text-white">{content_root[0]?.tittle ?? "kosong"}</h1>
-                <p class="sm:text-sm md:text-md"><span class="mx-1"><a href="/porto">{creatordesc[0]?.name}</a></span> | <span class="mx-1">{content_root[0]?.posted}</span> | <span></span></p>
+                <p class="sm:text-sm md:text-md"><span class="mx-1"><a href="/porto">{creatorname}</a></span> | <span class="mx-1">{content_root[0]?.posted}</span> | <span></span></p>
             </div>
             <br/>
             <div id="raw-content" class="hidden">{content_root[0].content}</div>

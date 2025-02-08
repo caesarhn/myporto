@@ -4,7 +4,7 @@ const {buttonDeck: deck, creator_name, creator_img, tittle, content_img, like, p
 
 <div class="preview" onclick="window">
     <div class="flex">
-        <img class="rounded-full w-9 h-9" src={creator_img} loading="lazy" alt="profile photo"/>
+        <img class="rounded-full w-9 h-9 border-2" src={creator_img === ""?"profile.webp":creator_img} loading="lazy" alt="profile photo"/>
         <a href="/porto" class="ps-3"><span class="sm:text-md md:text-3sm lg:text-sm inline-blok align-middle text-gray-700 dark:text-gray-300">{creator_name}</span></a>
     </div>
     <br class="text-sm"/>
