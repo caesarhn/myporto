@@ -8,6 +8,7 @@ export const PUBLIC_URL = [
   "/sitemap.xml",
   "/age-calculator",
   "/simple-qr",
+  "/test",
   
   //testing
   "/api/content/write-new",
