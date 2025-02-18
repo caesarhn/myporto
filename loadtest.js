@@ -7,6 +7,6 @@ export const options = {
 };
 
 export default function () {
-    http.get('https://engineeringsampel.com/Caesar%20Nuari/read/3081a1af-1ca5-434b-8bf1-f78c3275c2a2'); // Ganti PORT dengan port aplikasi Anda
+    http.get('https://engineeringsampel.com'); // Ganti PORT dengan port aplikasi Anda
     sleep(10);
 }

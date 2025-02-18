@@ -5,7 +5,6 @@ export async function GET({ site }) {
     // Ambil semua dynamic routes
     const contents = await db.select().from(content)
     //console.log("test sitemap")
-
   
     const staticRoutes = [
       '/',
