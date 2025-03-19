@@ -1,5 +1,6 @@
 ---
 const device = Astro.locals.device
+// const device = "desktop"
 const classbase = ["grid", "gap-px"]
 const deviceclass = device === "mobile"? "col-template-mobile":"col-template"
 
@@ -18,10 +19,22 @@ if(device === 'desktop'){
         gradientx = 0
         gradienty += 3
     }
-}else{
+}
+else if(device === 'mobile'){
     for(var i = 0; i <30; i++){
         var gradientx = 0
         for(var j =0; j <50; j++){
+            data[index] = [gradientx, gradienty, 50]
+            gradientx += 3
+            index++
+        }
+        gradientx = 0
+        gradienty += 3
+    }
+}else{
+    for(var i = 0; i <50; i++){
+        var gradientx = 0
+        for(var j =0; j <128; j++){
             data[index] = [gradientx, gradienty, 50]
             gradientx += 3
             index++

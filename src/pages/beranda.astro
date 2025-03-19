@@ -15,59 +15,60 @@ import {eq, and} from 'drizzle-orm'
 
 export const prerender = false
 
-const params = Astro.url.searchParams
+// const params = Astro.url.searchParams
 const category = ["All", "Technology", "Health", "Economy"]
-const categoryRequested = params.get("category")
+// const categoryRequested = params.get("category")
+var categoryRequested = "All"
 const domainRecomended = ["Artificial Intelligence", "Otomotif", "Robotics", "Entertaiment", "Arcitecture", "Art"]
 
-const search = Astro.cookies.get("search")?.value === undefined ? "all" : Astro.cookies.get("search")?.value
-const searching = Astro.cookies.get("searching")?.value === undefined ? "disable" : Astro.cookies.get("searching")?.value
+// const search = Astro.cookies.get("search")?.value === undefined ? "all" : Astro.cookies.get("search")?.value
+// const searching = Astro.cookies.get("searching")?.value === undefined ? "disable" : Astro.cookies.get("searching")?.value
 
 var datas = []
-if(categoryRequested === null || categoryRequested === "All"){
-    datas = await db.select({
-        creator: creator,
-        content_root: {
-            id: content.id,
-            tittle: content.tittle,
-            previewImg: content.previewImg,
-            previewDesc: content.previewDesc,
-            posted: content.posted,
-            like: content.like,
-            view: content.view,
-        }
-    }).from(creator).leftJoin(content, eq(creator.id, content.creatorId))
-}else{
-    datas = await db.select({
-        creator: creator,
-        content_root: {
-            id: content.id,
-            tittle: content.tittle,
-            previewImg: content.previewImg,
-            previewDesc: content.previewDesc,
-            posted: content.posted,
-            like: content.like,
-            view: content.view,
-        }
-    }).from(creator).leftJoin(content, and(eq(creator.id, content.creatorId), eq(content.category, categoryRequested)))
-}
+// if(categoryRequested === null || categoryRequested === "All"){
+//     datas = await db.select({
+//         creator: creator,
+//         content_root: {
+//             id: content.id,
+//             tittle: content.tittle,
+//             previewImg: content.previewImg,
+//             previewDesc: content.previewDesc,
+//             posted: content.posted,
+//             like: content.like,
+//             view: content.view,
+//         }
+//     }).from(creator).leftJoin(content, eq(creator.id, content.creatorId))
+// }else{
+//     datas = await db.select({
+//         creator: creator,
+//         content_root: {
+//             id: content.id,
+//             tittle: content.tittle,
+//             previewImg: content.previewImg,
+//             previewDesc: content.previewDesc,
+//             posted: content.posted,
+//             like: content.like,
+//             view: content.view,
+//         }
+//     }).from(creator).leftJoin(content, and(eq(creator.id, content.creatorId), eq(content.category, categoryRequested)))
+// }
 
 var indexads = 0
 var data = []
 
-if(datas.length !== 0 && datas[0].content_root !== null){
-    if(searching === "enable"){
-        const dataFilter = datas?.filter(res => {
-            return res.content_root.tittle.includes(search)
-        })
-        data = dataFilter
-    }else{
-        data = datas
-    }
-    //data = searching === "enable" ? dataFilter : datas
-    Astro.cookies.set("searching", "disable")
-    indexads = Math.floor(Math.random() * (data.length - 1)) + 1
-}
+// if(datas.length !== 0 && datas[0].content_root !== null){
+//     if(searching === "enable"){
+//         const dataFilter = datas?.filter(res => {
+//             return res.content_root.tittle.includes(search)
+//         })
+//         data = dataFilter
+//     }else{
+//         data = datas
+//     }
+//     //data = searching === "enable" ? dataFilter : datas
+//     Astro.cookies.set("searching", "disable")
+//     indexads = Math.floor(Math.random() * (data.length - 1)) + 1
+// }
 var currentindex = 0
 ---
 

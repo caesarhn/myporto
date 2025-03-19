@@ -4,7 +4,7 @@ date: "2025-02-02"
 creator: "Caesar Nuari"
 description: "Artikel pertama saya di Astro"
 category: "Technology"
-layout: "../../../layouts/BlogLayoutV2.astro"
+layout: "../../layouts/BlogLayoutV2.astro"
 ---
 Dalam era digital yang semakin maju, kecerdasan buatan (AI) telah menjadi bagian dari banyak aspek kehidupan kita, mulai dari perekrutan kerja, pengajuan pinjaman, hingga seleksi kepemimpinan. Namun, apakah AI benar-benar netral dan bebas dari bias? Sebuah penelitian terbaru yang berjudul "AI Biases Towards Rich and Powerful Surnames" mengungkap kenyataan mengejutkan: AI lebih cenderung menguntungkan orang-orang dengan nama belakang yang terkait dengan kekayaan dan status sosial tinggi.
 

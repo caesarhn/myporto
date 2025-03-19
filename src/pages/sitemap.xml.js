@@ -1,9 +1,9 @@
-import {db} from "../utils/mysql/index"
-import {content} from "../models/mysql/schema"
+// import {db} from "../utils/mysql/index"
+// import {content} from "../models/mysql/schema"
 
 export async function GET({ site }) {
     // Ambil semua dynamic routes
-    const contents = await db.select().from(content)
+    // const contents = await db.select().from(content)
     //console.log("test sitemap")
   
     const staticRoutes = [
@@ -17,7 +17,7 @@ export async function GET({ site }) {
     // Gabungkan semua routes (statis + dinamis)
     const allRoutes = [
       ...staticRoutes,
-      ...contents.map(route => `/creator/read/${route.id}`),
+      // ...contents.map(route => `/creator/read/${route.id}`),
     ];
   
     // Buat format XML untuk sitemap

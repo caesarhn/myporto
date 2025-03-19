@@ -3,7 +3,7 @@ title: "Hello World"
 date: "2025-02-22"
 creator: "Caesar Nuari"
 description: "Artikel pertama saya di Astro"
-layout: "../../../layouts/BlogLayoutV2.astro"
+layout: "../../layouts/BlogLayoutV2.astro"
 ---
 
 Ini adalah isi dari blog post saya di Astro.

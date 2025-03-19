@@ -4,7 +4,7 @@ date: "2025-01-31"
 creator: "Caesar Nuari"
 description: "Artikel pertama saya di Astro"
 category: "Technology"
-layout: "../../../layouts/BlogLayoutV2.astro"
+layout: "../../layouts/BlogLayoutV2.astro"
 ---
 Pada artikel ini saya akan membagikan pengalaman saya pertama kali mencoba menggunakan tools load testing k6. saya melakukan test ke web yang saya bangun yaitu web ini, dan saya menggunakan data real yang saya uji sendiri tapi untuk kontent dibawah ini selanjutnya akan ditulis oleh AI yaitu deepseek dengan model deepseek-R1 selamat membaca
 Mengapa Load Testing Penting?

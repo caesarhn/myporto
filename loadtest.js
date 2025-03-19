@@ -7,6 +7,6 @@ export const options = {
 };
 
 export default function () {
-    http.get('https://engineeringsampel.com/test'); // Ganti PORT dengan port aplikasi Anda
-    sleep(1);
+    http.get('http://caesarnuari.online'); // Ganti PORT dengan port aplikasi Anda
+    sleep(10);
 }

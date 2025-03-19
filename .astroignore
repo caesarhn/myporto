@@ -1,0 +1,4 @@
+src/pages/[creatorname]/
+src/pages/api/
+src/pages/404.astro
+src/models/
