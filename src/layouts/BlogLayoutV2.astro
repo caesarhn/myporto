@@ -1,0 +1,58 @@
+---
+import Header from "../components/MainHeader.astro"
+import Footer from '../components/MainFooter.astro'
+
+const {title, date, creator, description, category} = Astro.props.frontmatter
+//console.log(Astro.props)
+---
+
+<!doctype html>
+<html lang="id">
+    <head>
+        <link rel="icon" type="image/x-icon" href="/fav.ico">
+        <meta charset="UTF-8" />
+        <meta name="description" content={description}/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title></title>
+        <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
+        <script is:inline async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8502078264600273" crossorigin="anonymous"></script>
+    </head>
+    <body class="min-h-full bg-slate-100">
+        <script> 
+            import { Modal } from 'flowbite' 
+        </script>
+        <Header/>
+        <div class="flex sm:block md:hidden w-fit mx-auto mt-2">
+        </div>
+        <main class="sm:w-full sm:px-5 md:w-1/2 md:mx-auto lg:w-2/5 lg:mx-auto bg-slate-50 mt-20 pt-5">
+            <p id="cat" class="mb-8">{category}</p>
+            <article class="markdown-content prose-lg prose-h2:font-bold prose-h3:font-bold prose-p:text-justify prose-img:mx-auto">
+                <div class="content-head">
+                    <h1 class="mb-4 font-extrabold leading-none tracking-tight text-gray-900 sm:text-3xl md:text-5xl lg:text-4xl dark:text-white">{title}</h1>
+                    <p class="sm:text-sm md:text-md"><span class="mx-1"><a href="/porto">{creator}</a></span> | <span class="mx-1">{date}</span> | <span></span></p>
+                </div>
+                <br/>
+                <slot/>
+            </article>
+            <!-- <div id="raw-content" class="hidden"></div> -->
+            <!-- <div id="contents" class="text-base md:text-lg sm:text-md text-justify text-gray-900 dark:text-white"></div> -->
+        </main>
+        <div class="flex mx-auto w-1/2 h-fit mt-5">
+            <ins class="adsbygoogle"
+            style="display:block"
+            data-ad-format="autorelaxed"
+            data-ad-client="ca-pub-8502078264600273"
+            data-ad-slot="4786421263"></ins>
+            <script is:inline>
+                (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
+        </div>
+        <Footer/>
+    </body>
+</html>
+
+<style>
+    h3{
+        font-size: larger;
+    }
+</style>

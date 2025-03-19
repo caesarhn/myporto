@@ -1,27 +1,16 @@
-import { z, defineCollection } from 'astro:content';
+import { defineCollection, z } from 'astro:content';
 
-const portoCollection = defineCollection({
-    type: 'data', // Astro v2.5.0 and later
-    schema: z.object({
-        title: z.string(),
-        name: z.string(),
-        identity: z.string(),
-        portofolio: z.array(z.object({
-            project_name: z.string(),
-            project_image: z.string(),
-            duration: z.string(),
-            description: z.string()
-        })),
-        current_project: z.array(z.object({
-            project_name: z.string(),
-            project_image: z.string(),
-            started_from: z.string(),
-            description: z.string()
-        }))
-    }),
-}); 
-
+const blogCollection = defineCollection({
+  schema: z.object({
+    title: z.string(),
+    date: z.string(),
+    creator: z.string(),
+    description: z.string(),
+    category: z.string(),
+    Layout: z.string().optional()
+  }),
+});
 
 export const collections = {
-  'portofolio': portoCollection,
+  blog: blogCollection,
 };

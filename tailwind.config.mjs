@@ -26,6 +26,7 @@ export default {
 	},
 	plugins: [
 		require('flowbite/plugin'),
+		require("@tailwindcss/typography"),
 		function ({ addUtilities }) {
 			addUtilities({
 				'.no-scrollbar': {
@@ -40,3 +41,4 @@ export default {
 		},
 	],
 }
+  

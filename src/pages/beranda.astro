@@ -4,6 +4,11 @@ import Preview from '../components/ContentPreview.astro'
 import Footer from '../components/MainFooter.astro'
 import Search from '../components/search.astro'
 
+import { getCollection } from "astro:content";
+const posts = await getCollection("blog");
+
+console.log(posts)
+
 import {db} from '../utils/mysql/index'
 import {creator, content} from '../models/mysql/schema'
 import {eq, and} from 'drizzle-orm'
