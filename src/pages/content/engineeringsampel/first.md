@@ -1,9 +1,12 @@
 ---
-title: "Hello World"
-date: "2025-02-22"
+title: "Pengalaman Load Testing Website dengan k6: Analisis Performa di Server Minim"
+date: "2025-01-31"
 creator: "Caesar Nuari"
 description: "Artikel pertama saya di Astro"
-layout: "../../layouts/BlogLayoutV2.astro"
+category: "Technology"
+preview_image: "https://"
+link: "/content/caesar-nuari/ai-berpihak-pada-orang-kaya"
+layout: "../../../layouts/BlogLayoutV2.astro"
 ---
 
 Ini adalah isi dari blog post saya di Astro.
