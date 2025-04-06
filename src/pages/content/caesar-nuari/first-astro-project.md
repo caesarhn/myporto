@@ -4,7 +4,9 @@ date: "2025-01-26"
 creator: "Caesar Nuari"
 description: "Artikel pertama saya di Astro"
 category: "Technology"
-layout: "../../layouts/BlogLayoutV2.astro"
+preview_image: "https://"
+link: "/content/caesar-nuari/ai-berpihak-pada-orang-kaya"
+layout: "../../../layouts/BlogLayoutV2.astro"
 ---
 I want to share my story about building a content-driven website. I named it ENGINEERING SAMPLE. I also made some TikTok videos with the same account name. This is my first web project that I have written by myself. stack i used :
 

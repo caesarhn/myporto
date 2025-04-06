@@ -1,11 +1,21 @@
 ---
-import Header from '../components/MainHeader.astro'
-import Preview from '../components/ContentPreview.astro'
-import Footer from '../components/MainFooter.astro'
-import Search from '../components/search.astro'
-import CategoryList from '../components/list/category-list.astro'
+import Header from '../../components/MainHeader.astro'
+import Preview from '../../components/ContentPreview.astro'
+import Footer from '../../components/MainFooter.astro'
+import Search from '../../components/search.astro'
+import CategoryList from '../../components/list/category-list.astro'
 
-const allPosts = Object.values(import.meta.glob('./content/caesar-nuari/*.md', { eager: true }))
+export async function getStaticPaths() {
+  return [
+    { params: { category: "All" } },
+    { params: { category: "Technology" } },
+    { params: { category: "Health" } },
+    { params: { category: "Economy" } },
+  ];
+}
+
+const { category } = Astro.params;
+const allPosts = Object.values(import.meta.glob('../content/caesar-nuari/*.md', { eager: true }))
 const posts = allPosts.map(data => { return data.frontmatter})
 
 export const prerender = false
@@ -20,12 +30,10 @@ var datas = []
 
 var indexads = 0
 var data = []
-data = posts.map(res => {
-    return categoryRequested === "All" ? false : res
-})
+data = posts.filter(res => res.category === category)
 
 // console.log(data)
-// console.log(categoryRequested)
+// console.log(category)
 
 var currentindex = 0
 ---
@@ -55,7 +63,7 @@ var currentindex = 0
         <main class="flex justify-between mb-0 sm:px-3 lg:mx-auto w-full sm:w-full md:w-1/2 lg:w-2/3 xl:w-4/5">
             <div class="h-fit sm:w-full lg:w-2/3 xl:w-1/2" id="left">
                 <div class="sm:mt-12 lg:mt-2">
-                    <CategoryList categorys={categorys} categoryRequested="All"/>
+                    <CategoryList categorys={categorys} categoryRequested={category}/>
                 </div>
                 {data.length !== 0 ? data.map(res => {
                 if(currentindex == indexads){

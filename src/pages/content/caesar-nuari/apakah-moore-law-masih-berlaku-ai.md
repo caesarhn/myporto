@@ -4,7 +4,9 @@ date: "2025-02-05"
 creator: "Caesar Nuari"
 description: "Artikel pertama saya di Astro"
 category: "Technology"
-layout: "../../layouts/BlogLayoutV2.astro"
+preview_image: "https://"
+link: "/content/caesar-nuari/ai-berpihak-pada-orang-kaya"
+layout: "../../../layouts/BlogLayoutV2.astro"
 tags: ["astro", "blog"]
 ---
 Kecerdasan buatan (AI) terus berkembang dengan kecepatan yang mengejutkan, melampaui ekspektasi para peneliti dan industri. Dari peningkatan daya komputasi hingga penciptaan model AI yang semakin canggih, banyak yang bertanya: apa yang sebenarnya mendorong kemajuan pesat ini? Apakah benar bahwa hukum MooreÃ¢â‚¬â€yang menyatakan bahwa daya komputasi meningkat dua kali lipat setiap dua tahunÃ¢â‚¬â€masih menjadi faktor utama di balik perkembangan AI? Atau ada faktor lain yang lebih berpengaruh? Artikel ini akan mengupas temuan dari jurnal penelitian terbaru yang membahas determinan utama dalam kemajuan AI.
