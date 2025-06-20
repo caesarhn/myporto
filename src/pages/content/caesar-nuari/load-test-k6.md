@@ -2,16 +2,17 @@
 title: "Pengalaman Load Testing Website dengan k6: Analisis Performa di Server Minim"
 date: "2025-01-31"
 creator: "Caesar Nuari"
-description: "Artikel pertama saya di Astro"
+profile_img: "/caesar-profile.webp"
+description: "Pada artikel ini saya akan membagikan pengalaman saya pertama kali mencoba menggunakan tools load testing k6. saya melakukan test ke web yang saya bangun yaitu web ini"
 category: "Technology"
-preview_image: "https://"
+preview_image: "/test-with-k6.png"
 link: "/content/caesar-nuari/ai-berpihak-pada-orang-kaya"
 layout: "../../../layouts/BlogLayoutV2.astro"
 ---
 Pada artikel ini saya akan membagikan pengalaman saya pertama kali mencoba menggunakan tools load testing k6. saya melakukan test ke web yang saya bangun yaitu web ini, dan saya menggunakan data real yang saya uji sendiri tapi untuk kontent dibawah ini selanjutnya akan ditulis oleh AI yaitu deepseek dengan model deepseek-R1 selamat membaca
 Mengapa Load Testing Penting?
 
-![gambar terminal k6 saat load test](https://engineeringsampel.com/test-with-k6.png)
+![gambar terminal k6 saat load test](/test-with-k6.png)
 
 Sebagai developer yang membangun website sendiri, saya menyadari pentingnya memastikan aplikasi bisa menangani trafik yang diharapkan. Meski website ini masih dalam pengembangan, saya memutuskan melakukan load testing menggunakan k6 untuk mengukur sejauh mana server VPS 1 CPU dan 2GB RAM bisa bertahan. Tools k6 dipilih karena kemudahan integrasinya dengan script JavaScript dan laporannya yang detail.
 

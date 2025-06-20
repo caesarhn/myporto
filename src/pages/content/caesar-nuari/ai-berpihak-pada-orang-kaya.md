@@ -2,9 +2,10 @@
 title: "AI Berpihak pada Orang Kaya? Ini Fakta Mengejutkan dari Penelitian Terbaru!"
 date: "2025-02-02"
 creator: "Caesar Nuari"
-description: "Artikel pertama saya di Astro"
+profile_img: "/caesar-profile.webp"
+description: "Penelitian ini menunjukkan bahwa AI tidak hanya mengenali perbedaan status sosial dari nama belakang seseorang, tetapi juga menggunakannya sebagai faktor dalam pengambilan keputusan penting. Hal ini menimbulkan pertanyaan etis dan sosial yang mendalam tentang keadilan dan objektivitas AI dalam berbagai aspek kehidupan."
 category: "Technology"
-preview_image: "https://"
+preview_image: "/content/box-plot-surename.webp"
 link: "/content/caesar-nuari/ai-berpihak-pada-orang-kaya"
 layout: "../../../layouts/BlogLayoutV2.astro"
 ---
@@ -14,7 +15,7 @@ Penelitian ini menunjukkan bahwa AI tidak hanya mengenali perbedaan status sosia
 
 ### Latar Belakang Penelitian
 
-![gambar boxplot data uji ai](https://engineeringsampel.com/content/box-plot-surename.webp)
+![gambar boxplot data uji ai](/content/box-plot-surename.webp)
 
 Penelitian ini berangkat dari keprihatinan bahwa sistem AI yang digunakan dalam pengambilan keputusan penting mungkin secara tidak sadar memperkuat ketidaksetaraan yang sudah ada dalam masyarakat. Sementara banyak studi sebelumnya telah menyoroti bias AI terhadap faktor seperti ras dan gender, bias berbasis nama belakang masih jarang diteliti. Salah satu contoh nyata adalah sistem perekrutan berbasis AI yang dikembangkan oleh Amazon, yang akhirnya dihentikan karena menunjukkan bias terhadap kandidat wanita. Sistem tersebut cenderung lebih menyukai pelamar pria karena dilatih menggunakan data historis yang didominasi oleh laki-laki dalam dunia kerja teknologi.
 
@@ -33,7 +34,7 @@ Penelitian ini menggunakan model bahasa AI terbaru, GPT-4o-mini, untuk menganali
 
 ### Hasil Penelitian
 
-![gambar koefisien plot](https://engineeringsampel.com/content/coefficient-surename.webp)
+![gambar koefisien plot](/content/coefficient-surename.webp)
 
 Hasilnya cukup mengejutkan: AI secara signifikan lebih mungkin memberikan nilai tinggi terhadap nama belakang yang dikaitkan dengan kekayaan dan status tinggi. Beberapa temuan utama antara lain:
 

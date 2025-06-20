@@ -2,9 +2,10 @@
 title: "My First Astro Project"
 date: "2025-01-26"
 creator: "Caesar Nuari"
-description: "Artikel pertama saya di Astro"
+profile_img: "/caesar-profile.webp"
+description: "this is my first project with AstroJs, also the project was evolve and adapt to this website"
 category: "Technology"
-preview_image: "https://"
+preview_image: "/content/landingpage.webp"
 link: "/content/caesar-nuari/ai-berpihak-pada-orang-kaya"
 layout: "../../../layouts/BlogLayoutV2.astro"
 ---

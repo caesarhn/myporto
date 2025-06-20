@@ -2,20 +2,21 @@
 title: "Kemajuan Kecerdasan Buatan: Apakah Moore's Law Masih Berlaku?"
 date: "2025-02-05"
 creator: "Caesar Nuari"
-description: "Artikel pertama saya di Astro"
+profile_img: "/caesar-profile.webp"
+description: "Salah satu teori utama dalam kemajuan AI adalah bahwa pertumbuhan eksponensial daya komputasi, sebagaimana diprediksi oleh Moore's Law, menjadi pendorong utama inovasi."
 category: "Technology"
-preview_image: "https://"
-link: "/content/caesar-nuari/ai-berpihak-pada-orang-kaya"
+preview_image: "/content/ai-brain-ilustrasi.jpg"
+link: "/content/caesar-nuari/apakah-moore-law-masih-berlaku-ai"
 layout: "../../../layouts/BlogLayoutV2.astro"
 tags: ["astro", "blog"]
 ---
-Kecerdasan buatan (AI) terus berkembang dengan kecepatan yang mengejutkan, melampaui ekspektasi para peneliti dan industri. Dari peningkatan daya komputasi hingga penciptaan model AI yang semakin canggih, banyak yang bertanya: apa yang sebenarnya mendorong kemajuan pesat ini? Apakah benar bahwa hukum MooreÃ¢â‚¬â€yang menyatakan bahwa daya komputasi meningkat dua kali lipat setiap dua tahunÃ¢â‚¬â€masih menjadi faktor utama di balik perkembangan AI? Atau ada faktor lain yang lebih berpengaruh? Artikel ini akan mengupas temuan dari jurnal penelitian terbaru yang membahas determinan utama dalam kemajuan AI.
+Kecerdasan buatan (AI) terus berkembang dengan kecepatan yang mengejutkan, melampaui ekspektasi para peneliti dan industri. Dari peningkatan daya komputasi hingga penciptaan model AI yang semakin canggih, banyak yang bertanya: apa yang sebenarnya mendorong kemajuan pesat ini? Apakah benar bahwa hukum Moore yang menyatakan bahwa daya komputasi meningkat dua kali lipat setiap dua tahun masih menjadi faktor utama di balik perkembangan AI? Atau ada faktor lain yang lebih berpengaruh? Artikel ini akan mengupas temuan dari jurnal penelitian terbaru yang membahas determinan utama dalam kemajuan AI.
 
-![gambar ilustrasi AI](https://engineeringsampel.com/content/ai-brain-ilustrasi.jpg)
+![gambar ilustrasi AI](/content/ai-brain-ilustrasi.jpg)
 
 ### Peran Daya Komputasi dalam Kemajuan AI
 
-Salah satu teori utama dalam kemajuan AI adalah bahwa pertumbuhan eksponensial daya komputasi, sebagaimana diprediksi oleh MooreÃ¢â‚¬â„¢s Law, menjadi pendorong utama inovasi. Studi ini menyoroti bahwa jumlah transistor dalam sebuah chip memang terus meningkat, memungkinkan model AI untuk dilatih dengan dataset yang lebih besar dan parameter yang lebih kompleks. Penelitian juga mencatat bahwa investasi dalam komputasi AI meningkat pesat dalam beberapa dekade terakhir, memungkinkan pengembangan model yang lebih canggih.
+Salah satu teori utama dalam kemajuan AI adalah bahwa pertumbuhan eksponensial daya komputasi, sebagaimana diprediksi oleh Moore's Law, menjadi pendorong utama inovasi. Studi ini menyoroti bahwa jumlah transistor dalam sebuah chip memang terus meningkat, memungkinkan model AI untuk dilatih dengan dataset yang lebih besar dan parameter yang lebih kompleks. Penelitian juga mencatat bahwa investasi dalam komputasi AI meningkat pesat dalam beberapa dekade terakhir, memungkinkan pengembangan model yang lebih canggih.
 Namun, penelitian ini menunjukkan bahwa meskipun daya komputasi adalah faktor kunci, itu bukan satu-satunya elemen yang menentukan kemajuan AI. Ada faktor lain yang sama pentingnya, yaitu jumlah peneliti AI dan publikasi ilmiah yang berkembang pesat. Studi ini mengungkap bahwa produksi paten dan publikasi di bidang AI berlipat ganda setiap sepuluh tahun, menandakan bahwa keterlibatan manusia juga berperan besar dalam mendorong inovasi.
 
 ### Pengenalan Indeks ASOTA (Aggregate State of the Art in ML)
